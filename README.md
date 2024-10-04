@@ -22,7 +22,7 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 
 ```
 brew install stow
-brew install --cask iterm2
+brew install --cask alacritty
 brew install neovim
 ```
 
