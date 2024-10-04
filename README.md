@@ -12,6 +12,12 @@ Ensure you have the following installed on your system
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
+Ensure to add the following to the .zprofile
+
+```
+eval "$(/opt/homebrew/bin/brew shellenv)"
+```
+
 ### Stow
 
 ```
