@@ -24,6 +24,12 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 brew install stow
 ```
 
+### Neovim
+
+```
+brew install neovim
+```
+
 ## Installation
 
 First, check out the dotfiles repo in your $HOME directory using git
