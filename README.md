@@ -18,15 +18,11 @@ Ensure to add the following to the .zprofile
 eval "$(/opt/homebrew/bin/brew shellenv)"
 ```
 
-### Stow
+### Brew Installs
 
 ```
 brew install stow
-```
-
-### Neovim
-
-```
+brew install --cask iterm2
 brew install neovim
 ```
 
