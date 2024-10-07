@@ -24,6 +24,8 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 brew install stow
 brew install --cask alacritty
 brew install neovim
+brew install ripgrep
+brew install fd
 ```
 
 ## Installation
