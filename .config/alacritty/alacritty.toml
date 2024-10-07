@@ -23,7 +23,7 @@ background = "#1a1b26"
 foreground = "#a9b1d6"
 
 [window]
-decorations = "Full"
+decorations = "None"
 startup_mode = "Maximized"
 
 [font]
