@@ -36,6 +36,15 @@ brew install --cask alacritty
 echo -e "\nInstall wezterm"
 brew install --cask wezterm
 
+echo -e "\nInstall starship"
+brew install startship
+
+echo -e "\nInstall zsh-syntax-highlighting"
+brew install zsh-syntax-highlighting
+
+echo -e "\nInstall zsh-autosuggestions"
+brew install zsh-autosuggestions
+
 dotfilesPath=~/dotfiles
 echo -e "\nClone dotfiles repo"
 if [ -d "$dotfilesPath" ]; then
