@@ -32,18 +32,25 @@ fi
 info "Running brew shellenv for this session"
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
-info "Installing Neovim..."
-brew install neovim
+info "Installing Stow..."
+brew install stow
 
-# info "Cloning dotfiles repo..."
-# if [ -d "~/dotfiles" ]; then
-# 	warning "The dotfiles directory already exist so pulling changes"
-# 	cd ~/dotfiles
-# 	git pull
-# 	cd ~
-# else
-# 	git clone https://github.com/derekryms/dotfiles.git ~/dotfiles
-# fi
-#
-# info "Source zshrc..."
-# source ~/dotfiles/.zshrc
+info "Cloning dotfiles repo..."
+if [ -d "~/dotfiles" ]; then
+	warning "The dotfiles directory already exist so pulling changes"
+	cd ~/dotfiles
+	git pull
+	cd ~
+else
+	git clone https://github.com/derekryms/dotfiles.git ~/dotfiles
+fi
+
+info "Create symlinks..."
+cd ~/dotfiles
+stow .
+cd ~
+
+read -p "Exit terminal? [y/n] " exit_terminal
+if [[ "$exit_terminal" == "y" ]]; then
+	exit
+fi
