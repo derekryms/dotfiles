@@ -31,6 +31,30 @@ fi
 info "Installing Stow..."
 brew install stow
 
+info "Install Neovim..."
+brew install neovim
+
+info "Install Ripgrep..."
+brew install ripgrep
+
+info "Install Fd..."
+brew install fd
+
+info "Install Alacritty..."
+brew install --cask alacritty
+
+# info "Install Wezterm..."
+# brew install --cask wezterm
+
+info "Install starship..."
+brew install startship
+
+info "Install Zsh-syntax-highlighting..."
+brew install zsh-syntax-highlighting
+
+info "Install Zsh-autosuggestions..."
+brew install zsh-autosuggestions
+
 info "Cloning dotfiles repo..."
 dotfilesDir=~/dotfiles
 if [ -d $dotfilesDir ]; then 
