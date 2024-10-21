@@ -37,7 +37,7 @@ else
 fi
 
 info "Source zshrc..."
-source ~/dotfiles/zshrc
+source ~/dotfiles/.zshrc
 
 info "Installing Neovim..."
 brew install neovim
