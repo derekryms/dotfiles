@@ -47,7 +47,7 @@ brew install --cask alacritty
 # brew install --cask wezterm
 
 info "Install starship..."
-brew install startship
+brew install starship
 
 info "Install Zsh-syntax-highlighting..."
 brew install zsh-syntax-highlighting
