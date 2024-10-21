@@ -36,5 +36,8 @@ else
 	git clone https://github.com/derekryms/dotfiles.git ~/dotfiles
 fi
 
+info "Source zshrc..."
+source ~/dotfiles/zshrc
+
 info "Installing Neovim..."
 brew install neovim
