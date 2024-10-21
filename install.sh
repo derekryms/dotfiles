@@ -36,21 +36,17 @@ info "Installing Stow..."
 brew install stow
 
 info "Cloning dotfiles repo..."
-if [ -d "~/dotfiles" ]; then
-	warning "The dotfiles directory already exist so pulling changes"
+if [ -d ~/dotfiles ]; then 
+	warning "The dotfiles directory already exist. Pulling changes"
 	cd ~/dotfiles
 	git pull
 	cd ~
-else
+else 
 	git clone https://github.com/derekryms/dotfiles.git ~/dotfiles
 fi
+
 
 info "Create symlinks..."
 cd ~/dotfiles
 stow .
 cd ~
-
-read -p "Exit terminal? [y/n] " exit_terminal
-if [[ "$exit_terminal" == "y" ]]; then
-	exit
-fi
