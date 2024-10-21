@@ -29,16 +29,21 @@ else
 	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
-info "Cloning dotfiles repo..."
-if [ -d "~/dotfiles" ]; then
-	warning "The dotfiles directory already exist so pulling changes"
-	git pull
-else
-	git clone https://github.com/derekryms/dotfiles.git ~/dotfiles
-fi
-
-info "Source zshrc..."
-source ~/dotfiles/.zshrc
+info "Running brew shellenv for this session"
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
 info "Installing Neovim..."
 brew install neovim
+
+# info "Cloning dotfiles repo..."
+# if [ -d "~/dotfiles" ]; then
+# 	warning "The dotfiles directory already exist so pulling changes"
+# 	cd ~/dotfiles
+# 	git pull
+# 	cd ~
+# else
+# 	git clone https://github.com/derekryms/dotfiles.git ~/dotfiles
+# fi
+#
+# info "Source zshrc..."
+# source ~/dotfiles/.zshrc
