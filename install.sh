@@ -38,15 +38,11 @@ brew install stow
 info "Cloning dotfiles repo..."
 if [ -d ~/dotfiles ]; then 
 	warning "The dotfiles directory already exist. Pulling changes"
-	cd ~/dotfiles
-	git pull
-	cd ~
+	git -C ~/dotfiles pull
 else 
 	git clone https://github.com/derekryms/dotfiles.git ~/dotfiles
 fi
 
 
 info "Create symlinks..."
-cd ~/dotfiles
-stow .
-cd ~
+stow -d ~/dotfiles -t ~ .
