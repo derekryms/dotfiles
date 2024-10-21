@@ -23,26 +23,21 @@ warning() {
 }
 
 info "Installing Homebrew..."
-if command -v brew &>/dev/null; then
-	warning "Homebrew already installed"
-else
+if ! command -v brew &>/dev/null; then
 	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+	eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
-
-info "Running brew shellenv for this session"
-eval "$(/opt/homebrew/bin/brew shellenv)"
 
 info "Installing Stow..."
 brew install stow
 
 info "Cloning dotfiles repo..."
-if [ -d ~/dotfiles ]; then 
-	warning "The dotfiles directory already exist. Pulling changes"
-	git -C ~/dotfiles pull
+dotfilesDir=~/dotfiles
+if [ -d $dotfilesDir ]; then 
+	git -C $dotfilesDir pull
 else 
-	git clone https://github.com/derekryms/dotfiles.git ~/dotfiles
+	git clone https://github.com/derekryms/dotfiles.git $dotfilesDir 
 fi
 
-
 info "Create symlinks..."
-stow -d ~/dotfiles -t ~ .
+stow -d $dotfilesDir   -t ~ .
