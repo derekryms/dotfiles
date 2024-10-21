@@ -31,7 +31,8 @@ fi
 
 info "Cloning dotfiles repo..."
 if [ -d "~/dotfiles" ]; then
-	warning "The dotfiles directory already exist"
+	warning "The dotfiles directory already exist so pulling changes"
+	git pull
 else
 	git clone https://github.com/derekryms/dotfiles.git ~/dotfiles
 fi
