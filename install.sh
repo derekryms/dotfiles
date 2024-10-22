@@ -40,6 +40,9 @@ brew install ripgrep
 info "Install Fd..."
 brew install fd
 
+info "Install Fzf..."
+brew install fzf
+
 info "Install Alacritty..."
 brew install --cask alacritty
 
@@ -54,6 +57,9 @@ brew install zsh-syntax-highlighting
 
 info "Install Zsh-autosuggestions..."
 brew install zsh-autosuggestions
+
+info "Install Zoxide..."
+brew install zoxide
 
 info "Cloning dotfiles repo..."
 dotfilesDir=~/dotfiles
