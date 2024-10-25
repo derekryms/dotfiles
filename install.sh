@@ -61,6 +61,9 @@ brew install zsh-autosuggestions
 info "Install Zoxide..."
 brew install zoxide
 
+info "Install Lazygit..."
+brew install lazygit
+
 info "Cloning dotfiles repo..."
 dotfilesDir=~/dotfiles
 if [ -d $dotfilesDir ]; then 

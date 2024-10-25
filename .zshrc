@@ -35,6 +35,7 @@ alias gpush='git push'
 alias gf='git fetch'
 alias gfa='git fetch --all'
 alias gpull='git pull'
+alias lg='lazygit'
 
 # Zoxide
 eval "$(zoxide init --cmd cd zsh)"
