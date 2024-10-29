@@ -22,7 +22,7 @@ source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 # System
 alias c='clear'
 alias e='exit'
-alias ll='ls -lah'
+alias ll='ls -lAh'
 
 # Git
 alias g='git'
