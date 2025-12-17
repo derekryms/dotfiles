@@ -6,6 +6,9 @@ export NVM_DIR="$HOME/.nvm"
 # Source homebrew
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
+# Aliases
+alias ls='ls --color'
+
 # Source zsh plugins
 # NOTE: Syntax highlighing must be at the end of file
 source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
