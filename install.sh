@@ -25,4 +25,15 @@ if ! command -v brew >/dev/null 2>&1; then
     /usr/bin/env bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
+# Install/Update homebrew packages
+packages=(
+  "zsh-autosuggestions"
+  "zsh-syntax-highlighting"
+)
+
+for pkg in "${packages[@]}"; do
+  brew install "$pkg"
+  echo
+done
+
 echo -e "Install Script Ran Successfully!\n"
