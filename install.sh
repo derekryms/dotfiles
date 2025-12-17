@@ -27,6 +27,7 @@ fi
 
 # Install/Update homebrew packages
 packages=(
+  "stow"
   "zsh-autosuggestions"
   "zsh-syntax-highlighting"
 )
