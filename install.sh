@@ -29,6 +29,7 @@ fi
 packages=(
   "stow"
   "oh-my-posh"
+  "fzf"
   "neovim"
   "zsh-autosuggestions"
   "zsh-syntax-highlighting"
