@@ -1,4 +1,4 @@
--- OPTIONS
+---------------------------------------- OPTIONS ----------------------------------------
 vim.g.mapleader = " " -- space leader key
 vim.g.maplocalleader = "\\" -- local leader form lazy.nvim
 
@@ -32,7 +32,7 @@ vim.o.breakindent = true -- prevent line wrapping
 
 vim.diagnostic.config({ virtual_text = true }) -- inline diagnostics
 
--- KEYMAPS
+---------------------------------------- KEYMAPS ----------------------------------------
 vim.keymap.set("n", "<ESC>", "<CMD>nohlsearch<CR>", { desc = "Remove search highlighting" })
 vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Up and center" })
 vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Down and center" })
@@ -43,7 +43,7 @@ vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Buffer below" })
 vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Buffer left" })
 vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Buffer right" })
 
--- AUTO COMMANDS
+--------------------------------------- AUTOCMDS ---------------------------------------
 -- highlight yank
 vim.api.nvim_create_autocmd("TextYankPost", {
   group = vim.api.nvim_create_augroup("highlight_yank", { clear = true }),
@@ -141,7 +141,7 @@ vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
   end,
 })
 
--- PLUGINS
+---------------------------------------- PLUGINS ----------------------------------------
 local plugins = {
   {
     "ellisonleao/gruvbox.nvim",
@@ -246,7 +246,7 @@ local plugins = {
   }
 }
 
--- LAZY
+----------------------------------------- LAZY -----------------------------------------
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   local lazyrepo = "https://github.com/folke/lazy.nvim.git"
