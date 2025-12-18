@@ -1,36 +1,36 @@
 ---------------------------------------- OPTIONS ----------------------------------------
-vim.g.mapleader = " " -- space leader key
-vim.g.maplocalleader = "\\" -- local leader form lazy.nvim
+vim.g.mapleader = " "                               -- space leader key
+vim.g.maplocalleader = "\\"                         -- local leader form lazy.nvim
 
-vim.o.mouse = "" -- disable mouse in nvim
-vim.o.termguicolors = true -- enable 24-bit colors
-vim.o.updatetime = 200 -- save swap file with 200ms debouncing
-vim.o.autoread = true -- auto update file if changed outside of nvim
-vim.o.undofile = true -- persistant undo history
-vim.o.number = true -- enable line numbers
-vim.o.relativenumber = true -- enable relative line numbers
+vim.o.mouse = ""                                    -- disable mouse in nvim
+vim.o.termguicolors = true                          -- enable 24-bit colors
+vim.o.updatetime = 200                              -- save swap file with 200ms debouncing
+vim.o.autoread = true                               -- auto update file if changed outside of nvim
+vim.o.undofile = true                               -- persistant undo history
+vim.o.number = true                                 -- enable line numbers
+vim.o.relativenumber = true                         -- enable relative line numbers
 vim.o.completeopt = "menu,menuone,noselect,preview" -- omnicomplete options for popup menu
-vim.o.pumheight = 10 -- max height of completion menu
-vim.o.winborder = "rounded" -- rounded border
-vim.o.showmode = false -- disable showing mode below statusline
-vim.o.cursorline = true -- enable cursor line
-vim.o.signcolumn = "yes" -- always show sign column
-vim.o.ignorecase = true -- case-insensitive search
-vim.o.smartcase = true -- until search pattern contains upper case characters
-vim.o.incsearch = true -- enable highlighting search in progress
-vim.o.tabstop = 2 -- how many spaces tab inserts
-vim.o.softtabstop = 2 -- how many spaces tab inserts
-vim.o.shiftwidth = 2 -- controls number of spaces when using >> or << commands
-vim.o.expandtab = true -- use appropriate number of spaces with tab
-vim.o.smartindent = true -- indenting correctly after bracket
-vim.o.autoindent = true -- copy indent from current line when starting new line
-vim.o.scrolloff = 8 -- always keep 8 lines above/below cursor unless at start/end of file
-vim.o.splitbelow = true -- better splitting
-vim.o.splitright = true -- better splitting
-vim.o.wrap = false -- disable wrapping
-vim.o.breakindent = true -- prevent line wrapping
+vim.o.pumheight = 10                                -- max height of completion menu
+vim.o.winborder = "rounded"                         -- rounded border
+vim.o.showmode = false                              -- disable showing mode below statusline
+vim.o.cursorline = true                             -- enable cursor line
+vim.o.signcolumn = "yes"                            -- always show sign column
+vim.o.ignorecase = true                             -- case-insensitive search
+vim.o.smartcase = true                              -- until search pattern contains upper case characters
+vim.o.incsearch = true                              -- enable highlighting search in progress
+vim.o.tabstop = 2                                   -- how many spaces tab inserts
+vim.o.softtabstop = 2                               -- how many spaces tab inserts
+vim.o.shiftwidth = 2                                -- controls number of spaces when using >> or << commands
+vim.o.expandtab = true                              -- use appropriate number of spaces with tab
+vim.o.smartindent = true                            -- indenting correctly after bracket
+vim.o.autoindent = true                             -- copy indent from current line when starting new line
+vim.o.scrolloff = 8                                 -- always keep 8 lines above/below cursor unless at start/end of file
+vim.o.splitbelow = true                             -- better splitting
+vim.o.splitright = true                             -- better splitting
+vim.o.wrap = false                                  -- disable wrapping
+vim.o.breakindent = true                            -- prevent line wrapping
 
-vim.diagnostic.config({ virtual_text = true }) -- inline diagnostics
+vim.diagnostic.config({ virtual_text = true })      -- inline diagnostics
 
 ---------------------------------------- KEYMAPS ----------------------------------------
 vim.keymap.set("n", "<ESC>", "<CMD>nohlsearch<CR>", { desc = "Remove search highlighting" })
@@ -141,6 +141,25 @@ vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
   end,
 })
 
+vim.api.nvim_create_autocmd('LspAttach', {
+  group = vim.api.nvim_create_augroup('my.lsp', {}),
+  callback = function(args)
+    local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
+
+    if client:supports_method('textDocument/formatting') then
+      vim.keymap.set("n", "<leader>bf", "<CMD>lua vim.lsp.buf.format()<CR>", { desc = "[LSP] Format buffer" })
+    end
+
+    -- Enable auto-completion. Note: Use CTRL-Y to select an item. |complete_CTRL-Y|
+    if client:supports_method('textDocument/completion') then
+      -- Optional: trigger autocompletion on EVERY keypress. May be slow!
+      -- local chars = {}; for i = 32, 126 do table.insert(chars, string.char(i)) end
+      -- client.server_capabilities.completionProvider.triggerCharacters = chars
+      vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
+    end
+  end,
+})
+
 ---------------------------------------- PLUGINS ----------------------------------------
 local plugins = {
   {
@@ -164,14 +183,14 @@ local plugins = {
     end,
     lazy = false,
     keys = {
-      { "<leader>fb", "<CMD>FzfLua buffers<CR>", desc = "Find buffers" },
-      { "<leader>ff", "<CMD>FzfLua files<CR>", desc = "Find files" },
-      { "<leader>ft", "<CMD>FzfLua live_grep<CR>", desc = "Find text" },
-      { "<leader>fc", "<CMD>FzfLua git_commits<CR>", desc = "Find commits" },
-      { "<leader>fh", "<CMD>FzfLua helptags<CR>", desc = "Find help" },
-      { "<leader>fr", "<CMD>FzfLua registers<CR>", desc = "Find registers" },
+      { "<leader>fb", "<CMD>FzfLua buffers<CR>",      desc = "Find buffers" },
+      { "<leader>ff", "<CMD>FzfLua files<CR>",        desc = "Find files" },
+      { "<leader>ft", "<CMD>FzfLua live_grep<CR>",    desc = "Find text" },
+      { "<leader>fc", "<CMD>FzfLua git_commits<CR>",  desc = "Find commits" },
+      { "<leader>fh", "<CMD>FzfLua helptags<CR>",     desc = "Find help" },
+      { "<leader>fr", "<CMD>FzfLua registers<CR>",    desc = "Find registers" },
       { "<leader>fo", "<CMD>FzfLua nvim_options<CR>", desc = "Find neovim options" },
-      { "<leader>fk", "<CMD>FzfLua keymaps<CR>", desc = "Find keymaps" },
+      { "<leader>fk", "<CMD>FzfLua keymaps<CR>",      desc = "Find keymaps" },
     },
   },
   {
@@ -243,8 +262,50 @@ local plugins = {
         end
       end
     end,
+  },
+  {
+    "neovim/nvim-lspconfig",
+  },
+  {
+    "mason-org/mason.nvim",
+    opts = {}
   }
 }
+
+vim.lsp.config('lua_ls', {
+  on_init = function(client)
+    if client.workspace_folders then
+      local path = client.workspace_folders[1].name
+      if
+          path ~= vim.fn.stdpath('config')
+          and (vim.uv.fs_stat(path .. '/.luarc.json') or vim.uv.fs_stat(path .. '/.luarc.jsonc'))
+      then
+        return
+      end
+    end
+
+    client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
+      runtime = {
+        version = 'LuaJIT',
+        path = {
+          'lua/?.lua',
+          'lua/?/init.lua',
+        },
+      },
+      workspace = {
+        checkThirdParty = false,
+        library = {
+          vim.env.VIMRUNTIME
+        }
+      }
+    })
+  end,
+  settings = {
+    Lua = {}
+  }
+})
+
+vim.lsp.enable({ "lua_ls" })
 
 ----------------------------------------- LAZY -----------------------------------------
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -254,7 +315,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
   if vim.v.shell_error ~= 0 then
     vim.api.nvim_echo({
       { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-      { out, "WarningMsg" },
+      { out,                            "WarningMsg" },
       { "\nPress any key to exit..." },
     }, true, {})
     vim.fn.getchar()
