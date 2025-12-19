@@ -266,6 +266,15 @@ local plugins = {
 	},
 	{
 		"mason-org/mason.nvim",
+		opts = {
+			registries = {
+				"github:mason-org/mason-registry",
+				"github:Crashdummyy/mason-registry",
+			},
+		},
+	},
+	{
+		"seblyng/roslyn.nvim",
 		opts = {},
 	},
 	{
@@ -280,6 +289,9 @@ local plugins = {
 				json = { "prettierd", "prettier" },
 				html = { "prettierd", "prettier" },
 				css = { "prettierd", "prettier" },
+			},
+			default_format_opts = {
+				lsp_format = "fallback",
 			},
 		},
 	},
