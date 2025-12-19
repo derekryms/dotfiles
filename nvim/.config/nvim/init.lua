@@ -141,17 +141,17 @@ vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
   end,
 })
 
-vim.api.nvim_create_autocmd('LspAttach', {
-  group = vim.api.nvim_create_augroup('my.lsp', {}),
+vim.api.nvim_create_autocmd("LspAttach", {
+  group = vim.api.nvim_create_augroup("my.lsp", {}),
   callback = function(args)
     local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
 
-    if client:supports_method('textDocument/formatting') then
+    if client:supports_method("textDocument/formatting") then
       vim.keymap.set("n", "<leader>bf", "<CMD>lua vim.lsp.buf.format()<CR>", { desc = "[LSP] Format buffer" })
     end
 
     -- Enable auto-completion. Note: Use CTRL-Y to select an item. |complete_CTRL-Y|
-    if client:supports_method('textDocument/completion') then
+    if client:supports_method("textDocument/completion") then
       -- Optional: trigger autocompletion on EVERY keypress. May be slow!
       -- local chars = {}; for i = 32, 126 do table.insert(chars, string.char(i)) end
       -- client.server_capabilities.completionProvider.triggerCharacters = chars
@@ -172,7 +172,7 @@ local plugins = {
   },
   {
     "nvim-mini/mini.icons",
-    opts = {}
+    opts = {},
   },
   {
     "ibhagwan/fzf-lua",
@@ -194,7 +194,7 @@ local plugins = {
     },
   },
   {
-    'stevearc/oil.nvim',
+    "stevearc/oil.nvim",
     opts = {
       view_options = {
         show_hidden = true,
@@ -203,7 +203,7 @@ local plugins = {
         max_width = 0.75,
         max_height = 0.75,
         preview_split = "below",
-      }
+      },
     },
     dependencies = { "nvim-mini/mini.icons" },
     lazy = false,
@@ -268,44 +268,44 @@ local plugins = {
   },
   {
     "mason-org/mason.nvim",
-    opts = {}
-  }
+    opts = {},
+  },
 }
 
-vim.lsp.config('lua_ls', {
+vim.lsp.config("lua_ls", {
   on_init = function(client)
     if client.workspace_folders then
       local path = client.workspace_folders[1].name
       if
-          path ~= vim.fn.stdpath('config')
-          and (vim.uv.fs_stat(path .. '/.luarc.json') or vim.uv.fs_stat(path .. '/.luarc.jsonc'))
+          path ~= vim.fn.stdpath("config")
+          and (vim.uv.fs_stat(path .. "/.luarc.json") or vim.uv.fs_stat(path .. "/.luarc.jsonc"))
       then
         return
       end
     end
 
-    client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
+    client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
       runtime = {
-        version = 'LuaJIT',
+        version = "LuaJIT",
         path = {
-          'lua/?.lua',
-          'lua/?/init.lua',
+          "lua/?.lua",
+          "lua/?/init.lua",
         },
       },
       workspace = {
         checkThirdParty = false,
         library = {
-          vim.env.VIMRUNTIME
-        }
-      }
+          vim.env.VIMRUNTIME,
+        },
+      },
     })
   end,
   settings = {
-    Lua = {}
-  }
+    Lua = {},
+  },
 })
 
-vim.lsp.enable({ "lua_ls" })
+vim.lsp.enable({ "lua_ls", "stylua" })
 
 ----------------------------------------- LAZY -----------------------------------------
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
