@@ -9,8 +9,6 @@ vim.o.autoread = true -- auto update file if changed outside of nvim
 vim.o.undofile = true -- persistant undo history
 vim.o.number = true -- enable line numbers
 vim.o.relativenumber = true -- enable relative line numbers
--- Below doesn't seem to matter with blink.cmp
--- vim.o.completeopt = "menu,menuone,noselect,preview" -- omnicomplete options for popup menu
 vim.o.pumheight = 10 -- max height of completion menu
 vim.o.winborder = "rounded" -- rounded border
 vim.o.showmode = false -- disable showing mode below statusline
@@ -310,6 +308,15 @@ local plugins = {
 				"github:mason-org/mason-registry",
 				"github:Crashdummyy/mason-registry",
 			},
+			ensure_installed = {
+				"lua-language-server",
+				"netcoredbg",
+				"prettier",
+				"prettierd",
+				"roslyn",
+				"stylua",
+				"typescript-language-server",
+			},
 		},
 	},
 	{
@@ -347,8 +354,39 @@ local plugins = {
 				default = { "lsp", "path", "snippets", "buffer" },
 			},
 			fuzzy = { implementation = "prefer_rust_with_warning" },
+			cmdline = {
+				keymap = {
+					preset = "inherit",
+					["<Tab>"] = { "show", "accept" },
+				},
+				completion = { menu = { auto_show = true } },
+			},
 		},
 		opts_extend = { "sources.default" },
+	},
+	{
+		"mfussenegger/nvim-dap",
+		config = function()
+			local dap = require("dap")
+			local masonPath = vim.fn.stdpath("data") .. "/mason/packages"
+
+			dap.adapters.coreclr = {
+				type = "executable",
+				command = masonPath .. "/netcoredbg/netcoredbg",
+				args = { "--interpreter=vscode" },
+			}
+
+			dap.configurations.cs = {
+				{
+					type = "coreclr",
+					name = "launch - netcoredbg",
+					request = "launch",
+					program = function()
+						return vim.fn.input("Path to dll", vim.fn.getcwd() .. "/bin/Debug/", "file")
+					end,
+				},
+			}
+		end,
 	},
 }
 
