@@ -9,5 +9,6 @@
   "nvim-lspconfig": { "branch": "master", "commit": "c4f67bf85b01a57e3c130352c0a0e453ab8cd5b9" },
   "nvim-treesitter": { "branch": "main", "commit": "4fc09bee78e91bf4ba471cdab4bf9dfa37fde51c" },
   "oil.nvim": { "branch": "master", "commit": "cbcb3f997f6f261c577b943ec94e4ef55108dd95" },
-  "roslyn.nvim": { "branch": "main", "commit": "4deb46ce892c279d3183661342c93aa2ec9716c6" }
+  "roslyn.nvim": { "branch": "main", "commit": "4deb46ce892c279d3183661342c93aa2ec9716c6" },
+  "which-key.nvim": { "branch": "main", "commit": "3aab2147e74890957785941f0c1ad87d0a44c15a" }
 }
