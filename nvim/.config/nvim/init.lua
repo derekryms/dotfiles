@@ -274,6 +274,12 @@ local plugins = {
 			formatters_by_ft = {
 				lua = { "stylua" },
 				javascript = { "prettierd", "prettier" },
+				javascriptreact = { "prettierd", "prettier" },
+				typescript = { "prettierd", "prettier" },
+				typescriptreact = { "prettierd", "prettier" },
+				json = { "prettierd", "prettier" },
+				html = { "prettierd", "prettier" },
+				css = { "prettierd", "prettier" },
 			},
 		},
 	},
@@ -312,7 +318,7 @@ vim.lsp.config("lua_ls", {
 	},
 })
 
-vim.lsp.enable({ "lua_ls", "stylua" })
+vim.lsp.enable({ "lua_ls", "stylua", "ts_ls" })
 
 ----------------------------------------- LAZY -----------------------------------------
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
