@@ -9,7 +9,8 @@ vim.o.autoread = true -- auto update file if changed outside of nvim
 vim.o.undofile = true -- persistant undo history
 vim.o.number = true -- enable line numbers
 vim.o.relativenumber = true -- enable relative line numbers
-vim.o.completeopt = "menu,menuone,noselect,preview" -- omnicomplete options for popup menu
+-- Below doesn't seem to matter with blink.cmp
+-- vim.o.completeopt = "menu,menuone,noselect,preview" -- omnicomplete options for popup menu
 vim.o.pumheight = 10 -- max height of completion menu
 vim.o.winborder = "rounded" -- rounded border
 vim.o.showmode = false -- disable showing mode below statusline
@@ -150,10 +151,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			vim.keymap.set("n", "<leader>bf", function()
 				require("conform").format({ bufnr = args.buf })
 			end, { desc = "[LSP] Format buffer" })
-		end
-
-		if client:supports_method("textDocument/completion") then
-			vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
 		end
 	end,
 })
@@ -336,6 +333,22 @@ local plugins = {
 				lsp_format = "fallback",
 			},
 		},
+	},
+	{
+		"saghen/blink.cmp",
+		version = "1.*",
+		opts = {
+			keymap = { preset = "default" },
+			appearance = {
+				nerd_font_variant = "mono",
+			},
+			completion = { documentation = { auto_show = false } },
+			sources = {
+				default = { "lsp", "path", "snippets", "buffer" },
+			},
+			fuzzy = { implementation = "prefer_rust_with_warning" },
+		},
+		opts_extend = { "sources.default" },
 	},
 }
 
