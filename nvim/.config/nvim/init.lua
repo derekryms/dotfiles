@@ -308,6 +308,7 @@ local plugins = {
 				"github:mason-org/mason-registry",
 				"github:Crashdummyy/mason-registry",
 			},
+      -- This does not actually do anything. Still have to install manually
 			ensure_installed = {
 				"lua-language-server",
 				"netcoredbg",
