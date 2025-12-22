@@ -16,6 +16,7 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # Aliases
 alias ls='ls --color'
+alias lg='lazygit'
 
 # Source zsh plugins
 # NOTE: Syntax highlighing must be at the end of file

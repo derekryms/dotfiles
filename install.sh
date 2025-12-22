@@ -35,6 +35,7 @@ packages=(
   "fd"
   "ripgrep"
   "neovim"
+  "lazygit"
   "zsh-autosuggestions"
   "zsh-syntax-highlighting"
 )
