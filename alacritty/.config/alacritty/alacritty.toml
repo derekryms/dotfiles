@@ -20,5 +20,6 @@ vi_mode_style = { shape = "Block", blinking = "Off" }
 
 [keyboard]
 bindings = [
-  { key = "V", mods = "Control | Shift", mode = "~Search", action = "ToggleViMode" }
+  { key = "V", mods = "Control | Shift", mode = "~Search", action = "ToggleViMode" },
+  { key = "Return", mods = "Shift", chars = "\u001b\r" }
 ]

@@ -221,7 +221,6 @@ local plugins = {
 				"jsdoc",
 				"json",
 				"json5",
-				"jsonc",
 				"lua",
 				"luadoc",
 				"luap",
@@ -317,6 +316,7 @@ local plugins = {
 				"roslyn",
 				"stylua",
 				"typescript-language-server",
+        "rust-analyzer",
 			},
 		},
 	},
@@ -425,7 +425,7 @@ vim.lsp.config("lua_ls", {
 	},
 })
 
-vim.lsp.enable({ "lua_ls", "stylua", "ts_ls" })
+vim.lsp.enable({ "lua_ls", "stylua", "ts_ls", "rust_analyzer" })
 
 ----------------------------------------- LAZY -----------------------------------------
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
