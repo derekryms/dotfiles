@@ -14,10 +14,8 @@ export NVM_DIR="$HOME/.nvm"
 # Source homebrew
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
-export PATH="/opt/homebrew/opt/ruby/bin:$HOMEBREW_PREFIX/lib/ruby/gems/4.0.0/bin:$PATH"
-
-# Source rust
-. "$HOME/.cargo/env"
+# Claude path
+export PATH="$HOME/.local/bin:$PATH"
 
 # Aliases
 alias ls='ls --color'
@@ -27,4 +25,3 @@ alias lg='lazygit'
 # NOTE: Syntax highlighing must be at the end of file
 source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-export PATH="$HOME/.local/bin:$PATH"

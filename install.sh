@@ -45,4 +45,10 @@ for pkg in "${packages[@]}"; do
   echo
 done
 
+# Install claude code if not already installed
+if ! command -v brew >/dev/null 2>&1; then
+    echo -e "Installing claude code ...\n"
+    curl -fsSL https://claude.ai/install.sh | bash
+fi
+
 echo -e "Install Script Ran Successfully!\n"
