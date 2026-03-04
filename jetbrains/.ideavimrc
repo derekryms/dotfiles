@@ -1,0 +1,135 @@
+""" Required plugins
+" IdeaVim
+" IdeaVim-quickscope
+" KJump
+" Which-Key
+
+""" Options
+let mapleader=" "
+let maplocalleader="\\"
+set number
+set relativenumber
+set scrolloff=4
+set sidescrolloff=8
+set shiftround
+set nowrap
+set hlsearch
+set ignorecase
+set incsearch
+set smartcase
+set ideajoin
+set idearefactormode=select
+
+""" Plugins
+Plug 'tpope/vim-commentary'
+" Plug 'tpope/vim-surround'
+Plug 'machakann/vim-highlightedyank'
+Plug 'preservim/nerdtree'
+nmap \ :NERDTree<CR>
+" set quickscope
+" let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+" nmap s :action KJumpAction<cr>
+" nmap <leader><leader>f :action KJumpAction.Word1<cr>
+" set which-key
+" let g:WhichKey_SortOrder="by_key_prefix_first"
+" let g:WhichKey_ShowVimActions = "true"
+" set notimeout
+" set matchit
+
+""" Mappings
+" Don't use Ex mode, use Q for formatting.
+" map Q gq
+" Ideavim config
+map <leader>ico :e ~/.ideavimrc<CR>
+map <leader>icr <Action>(IdeaVim.ReloadVimRc.reload)
+map <leader>ict <Action>(VimFindActionIdAction)
+" Windows
+" map <leader>wc <Action>(ActivateCommitToolWindow)
+" map <leader>wd <Action>(ToggleDistractionFreeMode)
+" map <leader>wh <Action>(HideAllWindows)
+" map <leader>wg <Action>(ActivateVersionControlToolWindow)
+" map <leader>ws <Action>(ShowSettings)
+" map <leader>wt <Action>(ActivateTerminalToolWindow)
+" map <leader>E <Action>(SelectInProjectView)
+" Search
+" map <leader>fa <Action>(GotoAction)
+map <leader>ff <Action>(GotoFile)
+" map<leader>fr <Action>(RecentFiles)
+" map<leader>ft <Action>(TextSearchAction)
+" map <ESC><ESC> :nohlsearch<CR>
+" Errors
+" map <A-N> <Action>(GotoNextError)
+" map <A-P> <Action>(GotoPreviousError)
+" map ]] <Action>(ReSharperGotoNextErrorInSolution)
+" map [[ <Action>(ReSharperGotoPrevErrorInSolution)
+map <leader>es <Action>(ShowErrorDescription)
+" Navigation
+" map <C-H> <C-W>h
+" map <C-J> <C-W>j
+" map <C-K> <C-W>k
+" map <C-L> <C-W>l
+map [b <Action>(PreviousTab)
+map ]b <Action>(NextTab)
+" map <C-\> <Action>(MoveTabRight)
+" map <C--> <Action>(MoveTabDown)
+" map <leader>tu <Action>(Unsplit)
+" Editor
+" map <A-J> <Action>(MoveLineDown)
+" map <A-K> <Action>(MoveLineUp)
+" map <C-S> <Action>(SaveAll)
+" Git
+" map <leader>gb <Action>(Git.Branches)
+" Copilot
+" map <leader>cpc <Action>(ActivateGitHubCopilotChatToolWindow)
+" map <leader>cpi <Action>(copilot.chat.inline)
+" Test
+" map <leader>tr <Action>(RiderUnitTestRunSolutionAction)
+" Debug
+" map <leader>db <Action>(ToggleLineBreakpoint)
+" map <leader>ds <Action>(Debug)
+" Neovim LSP mappings
+map grd <Action>(GotoDeclaration)
+map gra <Action>(ShowIntentionActions)
+map gri <Action>(ReSharperGotoImplementation)
+map grn <Action>(RenameElement)
+map grr <Action>(FindUsages)
+map grt <Action>(GotoTypeDeclaration)
+" map <leader>cA <Action>(Refactorings.QuickListPopupAction)
+" Goto
+" map gr <Action>(FindUsages)
+
+""" Set handlers
+" sethandler <C-A> a:ide
+" sethandler <C-B> a:vim
+" sethandler <C-C> i:vim n-x:ide
+sethandler <C-D> a:vim
+" sethandler <C-E> a:vim
+" sethandler <C-F> a:ide
+" sethandler <C-G> a:ide 
+" sethandler <C-H> a:vim
+sethandler <C-I> a:vim
+" sethandler <C-J> a:vim
+" sethandler <C-K> a:vim
+" sethandler <C-L> a:vim
+" sethandler <C-M> a:ide
+" sethandler <C-N> a:vim
+sethandler <C-O> a:vim
+" sethandler <C-P> a:vim
+" sethandler <C-Q> a:ide
+" sethandler <C-R> a:vim
+" sethandler <C-S> a:vim
+" sethandler <C-T> a:vim
+sethandler <C-U> a:vim
+" sethandler <C-V> a:vim
+" sethandler <C-W> a:vim
+" sethandler <C-X> i:vim n-x:ide
+" sethandler <C-Y> a:ide
+" sethandler <C-Z> a:vim
+" sethandler <C-Up> a:vim
+" sethandler <C-Down> a:vim
+" sethandler <C-Left> a:vim
+" sethandler <C-Right> a:vim
+" sethandler <C-[> a:ide
+" sethandler <C-]> a:ide
+" sethandler <C-\> a:vim
+" sethandler <C--> a:vim
