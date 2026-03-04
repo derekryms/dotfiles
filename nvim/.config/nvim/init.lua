@@ -155,14 +155,17 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 ---------------------------------------- PLUGINS ----------------------------------------
 local plugins = {
-	{
-		"ellisonleao/gruvbox.nvim",
-		lazy = false,
-		priority = 1000,
-		config = function()
-			vim.cmd([[colorscheme gruvbox]])
-		end,
-	},
+  {
+    "folke/tokyonight.nvim",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      require("tokyonight").setup({
+        transparent = true,
+      })
+      vim.cmd([[colorscheme tokyonight-night]])
+    end,
+  },
 	{
 		"nvim-mini/mini.icons",
 		opts = {},
