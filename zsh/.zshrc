@@ -4,6 +4,23 @@ if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
   eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/oh-my-posh.toml)"
 fi
 
+# Set history file location
+export HISTFILE=~/.zsh_history
+
+# Increase history size (number of commands to remember)
+export HISTSIZE=10000        # In-memory history
+export SAVEHIST=10000        # Saved to file
+
+# History options
+setopt EXTENDED_HISTORY      # Save timestamp and duration of commands
+setopt INC_APPEND_HISTORY    # Append to history file immediately (survives crashes)
+setopt SHARE_HISTORY         # Share history across terminals
+setopt HIST_IGNORE_DUPS      # Don't save duplicate consecutive commands
+setopt HIST_IGNORE_ALL_DUPS  # Remove older duplicate entries when new one is added
+setopt HIST_FIND_NO_DUPS     # Don't show duplicates when searching through history
+setopt HIST_REDUCE_BLANKS    # Remove extra blanks from history
+setopt HIST_SAVE_NO_DUPS     # Don't save duplicates to history file
+
 # Source fzf
 source <(fzf --zsh)
 
