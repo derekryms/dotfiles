@@ -1,24 +1,106 @@
 local wezterm = require 'wezterm'
 local config = wezterm.config_builder()
 
+-- Detect OS
+local is_windows = wezterm.target_triple:find('windows') ~= nil
+local is_mac = wezterm.target_triple:find('apple') ~= nil
+
+-- =====================
+-- Font
+-- =====================
+config.font = wezterm.font('JetBrains Mono', { weight = 'Regular' })
+config.font_size = 14
+config.line_height = 1.0
+
+-- =====================
+-- Appearance
+-- =====================
+config.color_scheme = 'Tokyo Night'
+config.window_background_opacity = 0.95
+config.macos_window_background_blur = 20 -- mac only, ignored on windows
+
+config.window_padding = {
+  left   = 10,
+  right  = 10,
+  top    = 10,
+  bottom = 10,
+}
+
+-- Hide the tab bar if only one tab is open
+config.hide_tab_bar_if_only_one_tab = true
+config.use_fancy_tab_bar = false -- simpler, more minimal tab bar
+
+-- =====================
+-- Shell
+-- =====================
+if is_windows then
+  config.default_prog = { 'pwsh.exe', '-NoLogo' } -- PowerShell 7
+else
+  config.default_prog = { '/bin/zsh', '-l' }
+end
+
+-- =====================
+-- Keybindings
+-- =====================
+local act = wezterm.action
+
+config.keys = {
+  -- Split panes
+  { key = 'd', mods = 'CMD',       action = act.SplitHorizontal { domain = 'CurrentPaneDomain' } },
+  { key = 'd', mods = 'CMD|SHIFT', action = act.SplitVertical { domain = 'CurrentPaneDomain' } },
+
+  -- Navigate panes (Vim-style)
+  { key = 'h', mods = 'CMD|SHIFT', action = act.ActivatePaneDirection 'Left' },
+  { key = 'l', mods = 'CMD|SHIFT', action = act.ActivatePaneDirection 'Right' },
+  { key = 'k', mods = 'CMD|SHIFT', action = act.ActivatePaneDirection 'Up' },
+  { key = 'j', mods = 'CMD|SHIFT', action = act.ActivatePaneDirection 'Down' },
+
+  -- Tabs
+  { key = 't', mods = 'CMD',       action = act.SpawnTab 'CurrentPaneDomain' },
+  { key = 'w', mods = 'CMD',       action = act.CloseCurrentTab { confirm = false } },
+
+  -- Copy mode (Vim motions in scrollback)
+  { key = 'f', mods = 'CMD|SHIFT', action = act.ActivateCopyMode },
+
+  -- Clear scrollback
+  { key = 'k', mods = 'CMD',       action = act.ClearScrollback 'ScrollbackAndViewport' },
+}
+
+-- =====================
+-- Scrollback
+-- =====================
+config.scrollback_lines = 10000
+
+-- =====================
+-- Performance
+-- =====================
+config.animation_fps = 60
+config.max_fps = 60
+
+-- =====================
+-- Bell
+-- =====================
+config.audible_bell = 'Disabled'
+
+-- =====================
+-- Startup (maximize with padding)
+-- =====================
 wezterm.on('gui-startup', function(cmd)
   local tab, pane, window = wezterm.mux.spawn_window(cmd or {})
   local gui_win = window:gui_window()
   local screen = wezterm.gui.screens().active
 
-  local padding = 8
-  local macBarHeight = 50
+  wezterm.sleep_ms(100) -- wait for window to finish initializing
 
-  gui_win:set_position(screen.x + padding, screen.y + padding + macBarHeight)
+  local h_padding = 10
+  local v_padding = 10
+  local mac_menu_bar_height = is_mac and 60 or 0
+
+  gui_win:set_position(screen.x + h_padding, screen.y + v_padding + mac_menu_bar_height)
   gui_win:set_inner_size(
-    screen.width - (padding * 2),
-    screen.height - (padding * 2) - macBarHeight
+    screen.width - (h_padding * 2),
+    screen.height - (v_padding * 2) - mac_menu_bar_height
   )
 end)
-
-config.font_size = 16
-config.color_scheme = 'Tokyo Night'
-
-config.font = wezterm.font 'JetBrains Mono'
 
 return config
