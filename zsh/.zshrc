@@ -1,5 +1,6 @@
 # Source oh my posh except for apple terminal
-if [ "$TERM_PROGRAM" != "Apple_Terminal" ] && [ "$TERM_PROGRAM" != "WezTerm" ]; then
+if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
+# if [ "$TERM_PROGRAM" != "Apple_Terminal" ] && [ "$TERM_PROGRAM" != "WezTerm" ]; then
   eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/oh-my-posh.toml)"
 fi
 
