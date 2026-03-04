@@ -379,6 +379,13 @@ local plugins = {
 		opts_extend = { "sources.default" },
 	},
 	{
+		"kdheepak/lazygit.nvim",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		keys = {
+			{ "<leader>lg", "<CMD>LazyGit<CR>", desc = "Open LazyGit" },
+		},
+	},
+	{
 		"mfussenegger/nvim-dap",
 		config = function()
 			local dap = require("dap")
