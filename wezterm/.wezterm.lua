@@ -44,12 +44,38 @@ end
 -- =====================
 local act = wezterm.action
 
+-- Smart Ctrl+H/J/K/L: pass through to Neovim if it's the foreground process,
+-- otherwise navigate WezTerm panes
+local direction_keys = { h = 'Left', j = 'Down', k = 'Up', l = 'Right' }
+
+local function split_nav(key)
+  return {
+    key = key,
+    mods = 'CTRL',
+    action = wezterm.action_callback(function(win, pane)
+      local proc = pane:get_foreground_process_info()
+      local name = proc and proc.name or ''
+      if name == 'nvim' or name == 'vim' then
+        win:perform_action({ SendKey = { key = key, mods = 'CTRL' } }, pane)
+      else
+        win:perform_action({ ActivatePaneDirection = direction_keys[key] }, pane)
+      end
+    end),
+  }
+end
+
 config.keys = {
   -- Split panes
   { key = 'd', mods = 'CMD',       action = act.SplitHorizontal { domain = 'CurrentPaneDomain' } },
   { key = 'd', mods = 'CMD|SHIFT', action = act.SplitVertical { domain = 'CurrentPaneDomain' } },
 
-  -- Navigate panes (Vim-style)
+  -- Smart Ctrl+H/J/K/L navigation (Neovim windows or WezTerm panes)
+  split_nav('h'),
+  split_nav('j'),
+  split_nav('k'),
+  split_nav('l'),
+
+  -- Navigate panes (Vim-style, kept as fallback with CMD+SHIFT)
   { key = 'h', mods = 'CMD|SHIFT', action = act.ActivatePaneDirection 'Left' },
   { key = 'l', mods = 'CMD|SHIFT', action = act.ActivatePaneDirection 'Right' },
   { key = 'k', mods = 'CMD|SHIFT', action = act.ActivatePaneDirection 'Up' },

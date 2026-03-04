@@ -37,10 +37,21 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Up and center" })
 vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Down and center" })
 vim.keymap.set("n", "n", "nzzzv", { desc = "Search next and center" })
 vim.keymap.set("n", "N", "Nzzzv", { desc = "Search previous and center" })
-vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Buffer above" })
-vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Buffer below" })
-vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Buffer left" })
-vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Buffer right" })
+local wezterm_dirs = { h = "Left", j = "Down", k = "Up", l = "Right" }
+local function navigate(dir)
+	local win = vim.api.nvim_get_current_win()
+	if vim.api.nvim_win_get_config(win).relative ~= "" then
+		return -- ignore floating windows
+	end
+	vim.cmd("wincmd " .. dir)
+	if vim.api.nvim_get_current_win() == win and vim.env.WEZTERM_PANE then
+		vim.fn.jobstart({ "wezterm", "cli", "activate-pane-direction", wezterm_dirs[dir] })
+	end
+end
+vim.keymap.set("n", "<C-h>", function() navigate("h") end, { desc = "Buffer left" })
+vim.keymap.set("n", "<C-j>", function() navigate("j") end, { desc = "Buffer below" })
+vim.keymap.set("n", "<C-k>", function() navigate("k") end, { desc = "Buffer above" })
+vim.keymap.set("n", "<C-l>", function() navigate("l") end, { desc = "Buffer right" })
 
 --------------------------------------- AUTOCMDS ---------------------------------------
 -- highlight yank
