@@ -37,6 +37,7 @@ vim.keymap.set("n", "<C-u>", "10<C-u>zz", { desc = "Up and center" })
 vim.keymap.set("n", "<C-d>", "10<C-d>zz", { desc = "Down and center" })
 vim.keymap.set("n", "n", "nzzzv", { desc = "Search next and center" })
 vim.keymap.set("n", "N", "Nzzzv", { desc = "Search previous and center" })
+
 local wezterm_dirs = { h = "Left", j = "Down", k = "Up", l = "Right" }
 local function navigate(dir)
 	local win = vim.api.nvim_get_current_win()
@@ -48,10 +49,19 @@ local function navigate(dir)
 		vim.fn.jobstart({ "wezterm", "cli", "activate-pane-direction", wezterm_dirs[dir] })
 	end
 end
-vim.keymap.set("n", "<C-h>", function() navigate("h") end, { desc = "Buffer left" })
-vim.keymap.set("n", "<C-j>", function() navigate("j") end, { desc = "Buffer below" })
-vim.keymap.set("n", "<C-k>", function() navigate("k") end, { desc = "Buffer above" })
-vim.keymap.set("n", "<C-l>", function() navigate("l") end, { desc = "Buffer right" })
+
+vim.keymap.set("n", "<C-h>", function()
+	navigate("h")
+end, { desc = "Buffer left" })
+vim.keymap.set("n", "<C-j>", function()
+	navigate("j")
+end, { desc = "Buffer below" })
+vim.keymap.set("n", "<C-k>", function()
+	navigate("k")
+end, { desc = "Buffer above" })
+vim.keymap.set("n", "<C-l>", function()
+	navigate("l")
+end, { desc = "Buffer right" })
 
 --------------------------------------- AUTOCMDS ---------------------------------------
 -- highlight yank
@@ -166,17 +176,17 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 ---------------------------------------- PLUGINS ----------------------------------------
 local plugins = {
-  {
-    "folke/tokyonight.nvim",
-    lazy = false,
-    priority = 1000,
-    config = function()
-      require("tokyonight").setup({
-        transparent = true,
-      })
-      vim.cmd([[colorscheme tokyonight-night]])
-    end,
-  },
+	{
+		"folke/tokyonight.nvim",
+		lazy = false,
+		priority = 1000,
+		config = function()
+			require("tokyonight").setup({
+				transparent = true,
+			})
+			vim.cmd([[colorscheme tokyonight-night]])
+		end,
+	},
 	{
 		"nvim-mini/mini.icons",
 		opts = {},
@@ -293,7 +303,7 @@ local plugins = {
 						sources = { "nvim_workspace_diagnostic" },
 					},
 				},
-				lualine_z = {},
+				lualine_z = { function() return vim.fn.line('.') .. '/' .. vim.fn.line('$') end },
 			},
 		},
 	},
@@ -321,7 +331,7 @@ local plugins = {
 				"github:mason-org/mason-registry",
 				"github:Crashdummyy/mason-registry",
 			},
-      -- This does not actually do anything. Still have to install manually
+			-- This does not actually do anything. Still have to install manually
 			ensure_installed = {
 				"lua-language-server",
 				"netcoredbg",
