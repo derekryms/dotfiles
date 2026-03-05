@@ -33,8 +33,8 @@ vim.diagnostic.config({ virtual_text = true }) -- inline diagnostics
 
 ---------------------------------------- KEYMAPS ----------------------------------------
 vim.keymap.set("n", "<ESC>", "<CMD>nohlsearch<CR>", { desc = "Remove search highlighting" })
-vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Up and center" })
-vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Down and center" })
+vim.keymap.set("n", "<C-u>", "10<C-u>zz", { desc = "Up and center" })
+vim.keymap.set("n", "<C-d>", "10<C-d>zz", { desc = "Down and center" })
 vim.keymap.set("n", "n", "nzzzv", { desc = "Search next and center" })
 vim.keymap.set("n", "N", "Nzzzv", { desc = "Search previous and center" })
 local wezterm_dirs = { h = "Left", j = "Down", k = "Up", l = "Right" }
