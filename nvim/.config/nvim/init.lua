@@ -161,6 +161,22 @@ vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
 	end,
 })
 
+-- toggle auto complete menu when inline suggestion is shown
+vim.api.nvim_create_autocmd("User", {
+	pattern = "BlinkCmpMenuOpen",
+	callback = function()
+		require("copilot.suggestion").dismiss()
+		vim.b.copilot_suggestion_hidden = true
+	end,
+})
+vim.api.nvim_create_autocmd("User", {
+	pattern = "BlinkCmpMenuClose",
+	callback = function()
+		vim.b.copilot_suggestion_hidden = false
+		require("copilot.suggestion").next()
+	end,
+})
+
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("my.lsp", {}),
 	callback = function(args)
@@ -303,7 +319,11 @@ local plugins = {
 						sources = { "nvim_workspace_diagnostic" },
 					},
 				},
-				lualine_z = { function() return vim.fn.line('.') .. '/' .. vim.fn.line('$') end },
+				lualine_z = {
+					function()
+						return vim.fn.line(".") .. "/" .. vim.fn.line("$")
+					end,
+				},
 			},
 		},
 	},
@@ -318,6 +338,28 @@ local plugins = {
 					require("which-key").show({ global = false })
 				end,
 				desc = "Buffer Local Keymaps (which-key)",
+			},
+		},
+	},
+	{
+		"kdheepak/lazygit.nvim",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		keys = {
+			{ "<leader>lg", "<CMD>LazyGit<CR>", desc = "Open LazyGit" },
+		},
+	},
+	{
+		"zbirenbaum/copilot.lua",
+		dependencies = { "copilotlsp-nvim/copilot-lsp" },
+		opts = {
+			suggestion = {
+				auto_trigger = true,
+				keymap = {
+					accept = "<C-y>",
+					next = "<C-n>",
+					prev = "<C-p>",
+					dismiss = "<C-e>",
+				},
 			},
 		},
 	},
@@ -369,7 +411,10 @@ local plugins = {
 		"saghen/blink.cmp",
 		version = "1.*",
 		opts = {
-			keymap = { preset = "default" },
+			keymap = {
+				preset = "default",
+				["<C-e>"] = { "hide", "show" },
+			},
 			appearance = {
 				nerd_font_variant = "mono",
 			},
@@ -387,13 +432,6 @@ local plugins = {
 			},
 		},
 		opts_extend = { "sources.default" },
-	},
-	{
-		"kdheepak/lazygit.nvim",
-		dependencies = { "nvim-lua/plenary.nvim" },
-		keys = {
-			{ "<leader>lg", "<CMD>LazyGit<CR>", desc = "Open LazyGit" },
-		},
 	},
 	{
 		"mfussenegger/nvim-dap",
