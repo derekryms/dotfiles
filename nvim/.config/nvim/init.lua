@@ -38,6 +38,18 @@ vim.keymap.set("n", "<C-d>", "10<C-d>zz", { desc = "Down and center" })
 vim.keymap.set("n", "n", "nzzzv", { desc = "Search next and center" })
 vim.keymap.set("n", "N", "Nzzzv", { desc = "Search previous and center" })
 
+-- local copilot_enabled = true
+-- vim.keymap.set("n", "<leader>tcs", function()
+-- 	copilot_enabled = not copilot_enabled
+-- 	if copilot_enabled then
+-- 		vim.cmd("Copilot enable")
+-- 		vim.notify("Copilot: ON")
+-- 	else
+-- 		vim.cmd("Copilot disable")
+-- 		vim.notify("Copilot: OFF")
+-- 	end
+-- end, { desc = "Toggle copilot" })
+
 local wezterm_dirs = { h = "Left", j = "Down", k = "Up", l = "Right" }
 local function navigate(dir)
 	local win = vim.api.nvim_get_current_win()
@@ -162,20 +174,20 @@ vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
 })
 
 -- toggle auto complete menu when inline suggestion is shown
-vim.api.nvim_create_autocmd("User", {
-	pattern = "BlinkCmpMenuOpen",
-	callback = function()
-		require("copilot.suggestion").dismiss()
-		vim.b.copilot_suggestion_hidden = true
-	end,
-})
-vim.api.nvim_create_autocmd("User", {
-	pattern = "BlinkCmpMenuClose",
-	callback = function()
-		vim.b.copilot_suggestion_hidden = false
-		require("copilot.suggestion").next()
-	end,
-})
+-- vim.api.nvim_create_autocmd("User", {
+-- 	pattern = "BlinkCmpMenuOpen",
+-- 	callback = function()
+-- 		require("copilot.suggestion").dismiss()
+-- 		vim.b.copilot_suggestion_hidden = true
+-- 	end,
+-- })
+-- vim.api.nvim_create_autocmd("User", {
+-- 	pattern = "BlinkCmpMenuClose",
+-- 	callback = function()
+-- 		vim.b.copilot_suggestion_hidden = false
+-- 		require("copilot.suggestion").next()
+-- 	end,
+-- })
 
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("my.lsp", {}),
@@ -348,21 +360,21 @@ local plugins = {
 			{ "<leader>lg", "<CMD>LazyGit<CR>", desc = "Open LazyGit" },
 		},
 	},
-	{
-		"zbirenbaum/copilot.lua",
-		dependencies = { "copilotlsp-nvim/copilot-lsp" },
-		opts = {
-			suggestion = {
-				auto_trigger = true,
-				keymap = {
-					accept = "<C-y>",
-					next = "<C-n>",
-					prev = "<C-p>",
-					dismiss = "<C-e>",
-				},
-			},
-		},
-	},
+	-- {
+	-- 	"zbirenbaum/copilot.lua",
+	-- 	dependencies = { "copilotlsp-nvim/copilot-lsp" },
+	-- 	opts = {
+	-- 		suggestion = {
+	-- 			auto_trigger = true,
+	-- 			keymap = {
+	-- 				accept = "<M-y>",
+	-- 				next = "<M-n>",
+	-- 				prev = "<M-p>",
+	-- 				dismiss = "<M-e>",
+	-- 			},
+	-- 		},
+	-- 	},
+	-- },
 	{
 		"neovim/nvim-lspconfig",
 	},
