@@ -220,6 +220,11 @@ local plugins = {
 		opts = {},
 	},
 	{
+		"windwp/nvim-autopairs",
+		event = "InsertEnter",
+		opts = {},
+	},
+	{
 		"ibhagwan/fzf-lua",
 		dependencies = { "nvim-mini/mini.icons" },
 		opts = {},
