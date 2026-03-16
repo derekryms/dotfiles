@@ -140,38 +140,38 @@ vim.api.nvim_create_autocmd({ "WinLeave", "BufLeave" }, {
 })
 
 -- highlight references when the cursor is idle (stops/holds)
-vim.api.nvim_create_autocmd("CursorHold", {
-	group = vim.api.nvim_create_augroup("LspReferenceHighlight", { clear = true }),
-	desc = "Highlight references when cursor stops",
-	callback = function()
-		if vim.fn.mode() ~= "i" then
-			local clients = vim.lsp.get_clients({ bufnr = 0 })
-			local supports_highlight = false
-			for _, client in ipairs(clients) do
-				if client.server_capabilities.documentHighlightProvider then
-					supports_highlight = true
-					-- found a supporting client, no need to check others
-					break
-				end
-			end
-
-			-- proceed only if an LSP is active AND supports the feature
-			if supports_highlight then
-				vim.lsp.buf.clear_references()
-				vim.lsp.buf.document_highlight()
-			end
-		end
-	end,
-})
+-- vim.api.nvim_create_autocmd("CursorHold", {
+-- 	group = vim.api.nvim_create_augroup("LspReferenceHighlight", { clear = true }),
+-- 	desc = "Highlight references when cursor stops",
+-- 	callback = function()
+-- 		if vim.fn.mode() ~= "i" then
+-- 			local clients = vim.lsp.get_clients({ bufnr = 0 })
+-- 			local supports_highlight = false
+-- 			for _, client in ipairs(clients) do
+-- 				if client.server_capabilities.documentHighlightProvider then
+-- 					supports_highlight = true
+-- 					-- found a supporting client, no need to check others
+-- 					break
+-- 				end
+-- 			end
+--
+-- 			-- proceed only if an LSP is active AND supports the feature
+-- 			if supports_highlight then
+-- 				vim.lsp.buf.clear_references()
+-- 				vim.lsp.buf.document_highlight()
+-- 			end
+-- 		end
+-- 	end,
+-- })
 
 -- clear highlights when the cursor moves again
-vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
-	group = "LspReferenceHighlight",
-	desc = "Clear references when cursor moves",
-	callback = function()
-		vim.lsp.buf.clear_references()
-	end,
-})
+-- vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+-- 	group = "LspReferenceHighlight",
+-- 	desc = "Clear references when cursor moves",
+-- 	callback = function()
+-- 		vim.lsp.buf.clear_references()
+-- 	end,
+-- })
 
 -- toggle auto complete menu when inline suggestion is shown
 -- vim.api.nvim_create_autocmd("User", {
@@ -189,18 +189,18 @@ vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
 -- 	end,
 -- })
 
-vim.api.nvim_create_autocmd("LspAttach", {
-	group = vim.api.nvim_create_augroup("my.lsp", {}),
-	callback = function(args)
-		local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
-
-		if client:supports_method("textDocument/formatting") then
-			vim.keymap.set("n", "<leader>bf", function()
-				require("conform").format({ bufnr = args.buf })
-			end, { desc = "[LSP] Format buffer" })
-		end
-	end,
-})
+-- vim.api.nvim_create_autocmd("LspAttach", {
+-- 	group = vim.api.nvim_create_augroup("my.lsp", {}),
+-- 	callback = function(args)
+-- 		local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
+--
+-- 		if client:supports_method("textDocument/formatting") then
+-- 			vim.keymap.set("n", "<leader>bf", function()
+-- 				require("conform").format({ bufnr = args.buf })
+-- 			end, { desc = "[LSP] Format buffer" })
+-- 		end
+-- 	end,
+-- })
 
 ---------------------------------------- PLUGINS ----------------------------------------
 local plugins = {
@@ -365,39 +365,24 @@ local plugins = {
 			{ "<leader>lg", "<CMD>LazyGit<CR>", desc = "Open LazyGit" },
 		},
 	},
-	-- {
-	-- 	"zbirenbaum/copilot.lua",
-	-- 	dependencies = { "copilotlsp-nvim/copilot-lsp" },
-	-- 	opts = {
-	-- 		suggestion = {
-	-- 			auto_trigger = true,
-	-- 			keymap = {
-	-- 				accept = "<M-y>",
-	-- 				next = "<M-n>",
-	-- 				prev = "<M-p>",
-	-- 				dismiss = "<M-e>",
-	-- 			},
-	-- 		},
-	-- 	},
-	-- },
 	{
 		"neovim/nvim-lspconfig",
 	},
 	{
 		"mason-org/mason.nvim",
 		opts = {
-			registries = {
-				"github:mason-org/mason-registry",
-				"github:Crashdummyy/mason-registry",
-			},
+			-- registries = {
+			-- 	"github:mason-org/mason-registry",
+			-- 	"github:Crashdummyy/mason-registry",
+			-- },
 			-- This does not actually do anything. Still have to install manually
 			ensure_installed = {
-				"lua-language-server",
-				"netcoredbg",
+				-- "lua-language-server",
+				-- "netcoredbg",
 				"prettier",
 				"prettierd",
-				"roslyn",
-				"stylua",
+				-- "roslyn",
+				-- "stylua",
 				"typescript-language-server",
 			},
 		},
@@ -406,24 +391,24 @@ local plugins = {
 		"seblyng/roslyn.nvim",
 		opts = {},
 	},
-	{
-		"stevearc/conform.nvim",
-		opts = {
-			formatters_by_ft = {
-				lua = { "stylua" },
-				javascript = { "prettierd", "prettier" },
-				javascriptreact = { "prettierd", "prettier" },
-				typescript = { "prettierd", "prettier" },
-				typescriptreact = { "prettierd", "prettier" },
-				json = { "prettierd", "prettier" },
-				html = { "prettierd", "prettier" },
-				css = { "prettierd", "prettier" },
-			},
-			default_format_opts = {
-				lsp_format = "fallback",
-			},
-		},
-	},
+	-- {
+	-- 	"stevearc/conform.nvim",
+	-- 	opts = {
+	-- 		formatters_by_ft = {
+	-- 			lua = { "stylua" },
+	-- 			javascript = { "prettierd", "prettier" },
+	-- 			javascriptreact = { "prettierd", "prettier" },
+	-- 			typescript = { "prettierd", "prettier" },
+	-- 			typescriptreact = { "prettierd", "prettier" },
+	-- 			json = { "prettierd", "prettier" },
+	-- 			html = { "prettierd", "prettier" },
+	-- 			css = { "prettierd", "prettier" },
+	-- 		},
+	-- 		default_format_opts = {
+	-- 			lsp_format = "fallback",
+	-- 		},
+	-- 	},
+	-- },
 	{
 		"saghen/blink.cmp",
 		version = "1.*",
@@ -477,40 +462,40 @@ local plugins = {
 }
 
 ---------------------------------------- LSP ----------------------------------------
-vim.lsp.config("lua_ls", {
-	on_init = function(client)
-		if client.workspace_folders then
-			local path = client.workspace_folders[1].name
-			if
-				path ~= vim.fn.stdpath("config")
-				and (vim.uv.fs_stat(path .. "/.luarc.json") or vim.uv.fs_stat(path .. "/.luarc.jsonc"))
-			then
-				return
-			end
-		end
-
-		client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
-			runtime = {
-				version = "LuaJIT",
-				path = {
-					"lua/?.lua",
-					"lua/?/init.lua",
-				},
-			},
-			workspace = {
-				checkThirdParty = false,
-				library = {
-					vim.env.VIMRUNTIME,
-				},
-			},
-		})
-	end,
-	settings = {
-		Lua = {},
-	},
-})
-
-vim.lsp.enable({ "lua_ls", "stylua", "ts_ls" })
+-- vim.lsp.config("lua_ls", {
+-- 	on_init = function(client)
+-- 		if client.workspace_folders then
+-- 			local path = client.workspace_folders[1].name
+-- 			if
+-- 				path ~= vim.fn.stdpath("config")
+-- 				and (vim.uv.fs_stat(path .. "/.luarc.json") or vim.uv.fs_stat(path .. "/.luarc.jsonc"))
+-- 			then
+-- 				return
+-- 			end
+-- 		end
+--
+-- 		client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
+-- 			runtime = {
+-- 				version = "LuaJIT",
+-- 				path = {
+-- 					"lua/?.lua",
+-- 					"lua/?/init.lua",
+-- 				},
+-- 			},
+-- 			workspace = {
+-- 				checkThirdParty = false,
+-- 				library = {
+-- 					vim.env.VIMRUNTIME,
+-- 				},
+-- 			},
+-- 		})
+-- 	end,
+-- 	settings = {
+-- 		Lua = {},
+-- 	},
+-- })
+--
+-- vim.lsp.enable({ "lua_ls", "stylua", "ts_ls" })
 
 ----------------------------------------- LAZY -----------------------------------------
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
