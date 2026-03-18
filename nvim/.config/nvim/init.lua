@@ -164,16 +164,16 @@ vim.api.nvim_create_autocmd({ "WinLeave", "BufLeave" }, {
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("LspCustomizations", {}),
 	callback = function(args)
-		-- local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
+		local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
 
 		vim.keymap.set("n", "grd", vim.lsp.buf.definition, { buffer = args.buf, desc = "[LSP] Goto definition" })
 		vim.keymap.set("n", "grD", vim.lsp.buf.declaration, { buffer = args.buf, desc = "[LSP] Goto declaration" })
 
-		-- if client:supports_method("textDocument/formatting") then
-		-- 	vim.keymap.set("n", "<leader>bf", function()
-		-- 		require("conform").format({ bufnr = args.buf })
-		-- 	end, { desc = "[LSP] Format buffer" })
-		-- end
+		if client:supports_method("textDocument/formatting") then
+			vim.keymap.set("n", "<leader>bf", function()
+				require("conform").format({ bufnr = args.buf })
+			end, { desc = "[LSP] Format buffer" })
+		end
 	end,
 })
 
@@ -366,24 +366,24 @@ local plugins = {
 	-- 	"seblyng/roslyn.nvim",
 	-- 	opts = {},
 	-- },
-	-- {
-	-- 	"stevearc/conform.nvim",
-	-- 	opts = {
-	-- 		formatters_by_ft = {
-	-- 			lua = { "stylua" },
-	-- 			javascript = { "prettierd", "prettier" },
-	-- 			javascriptreact = { "prettierd", "prettier" },
-	-- 			typescript = { "prettierd", "prettier" },
-	-- 			typescriptreact = { "prettierd", "prettier" },
-	-- 			json = { "prettierd", "prettier" },
-	-- 			html = { "prettierd", "prettier" },
-	-- 			css = { "prettierd", "prettier" },
-	-- 		},
-	-- 		default_format_opts = {
-	-- 			lsp_format = "fallback",
-	-- 		},
-	-- 	},
-	-- },
+	{
+		"stevearc/conform.nvim",
+		opts = {
+			formatters_by_ft = {
+				lua = { "stylua" },
+				javascript = { "prettierd", "prettier" },
+				javascriptreact = { "prettierd", "prettier" },
+				typescript = { "prettierd", "prettier" },
+				typescriptreact = { "prettierd", "prettier" },
+				json = { "prettierd", "prettier" },
+				html = { "prettierd", "prettier" },
+				css = { "prettierd", "prettier" },
+			},
+			default_format_opts = {
+				lsp_format = "fallback",
+			},
+		},
+	},
 	{
 		"saghen/blink.cmp",
 		version = "1.*",
