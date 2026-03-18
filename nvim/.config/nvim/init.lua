@@ -38,18 +38,6 @@ vim.keymap.set("n", "<C-d>", "10<C-d>zz", { desc = "Down and center" })
 vim.keymap.set("n", "n", "nzzzv", { desc = "Search next and center" })
 vim.keymap.set("n", "N", "Nzzzv", { desc = "Search previous and center" })
 
--- local copilot_enabled = true
--- vim.keymap.set("n", "<leader>tcs", function()
--- 	copilot_enabled = not copilot_enabled
--- 	if copilot_enabled then
--- 		vim.cmd("Copilot enable")
--- 		vim.notify("Copilot: ON")
--- 	else
--- 		vim.cmd("Copilot disable")
--- 		vim.notify("Copilot: OFF")
--- 	end
--- end, { desc = "Toggle copilot" })
-
 local wezterm_dirs = { h = "Left", j = "Down", k = "Up", l = "Right" }
 local function navigate(dir)
 	local win = vim.api.nvim_get_current_win()
@@ -173,34 +161,21 @@ vim.api.nvim_create_autocmd({ "WinLeave", "BufLeave" }, {
 -- 	end,
 -- })
 
--- toggle auto complete menu when inline suggestion is shown
--- vim.api.nvim_create_autocmd("User", {
--- 	pattern = "BlinkCmpMenuOpen",
--- 	callback = function()
--- 		require("copilot.suggestion").dismiss()
--- 		vim.b.copilot_suggestion_hidden = true
--- 	end,
--- })
--- vim.api.nvim_create_autocmd("User", {
--- 	pattern = "BlinkCmpMenuClose",
--- 	callback = function()
--- 		vim.b.copilot_suggestion_hidden = false
--- 		require("copilot.suggestion").next()
--- 	end,
--- })
+vim.api.nvim_create_autocmd("LspAttach", {
+	group = vim.api.nvim_create_augroup("LspCustomizations", {}),
+	callback = function(args)
+		-- local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
 
--- vim.api.nvim_create_autocmd("LspAttach", {
--- 	group = vim.api.nvim_create_augroup("my.lsp", {}),
--- 	callback = function(args)
--- 		local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
---
--- 		if client:supports_method("textDocument/formatting") then
--- 			vim.keymap.set("n", "<leader>bf", function()
--- 				require("conform").format({ bufnr = args.buf })
--- 			end, { desc = "[LSP] Format buffer" })
--- 		end
--- 	end,
--- })
+		vim.keymap.set("n", "grd", vim.lsp.buf.definition, { buffer = args.buf, desc = "[LSP] Goto definition" })
+		vim.keymap.set("n", "grD", vim.lsp.buf.declaration, { buffer = args.buf, desc = "[LSP] Goto declaration" })
+
+		-- if client:supports_method("textDocument/formatting") then
+		-- 	vim.keymap.set("n", "<leader>bf", function()
+		-- 		require("conform").format({ bufnr = args.buf })
+		-- 	end, { desc = "[LSP] Format buffer" })
+		-- end
+	end,
+})
 
 ---------------------------------------- PLUGINS ----------------------------------------
 local plugins = {
@@ -377,20 +352,20 @@ local plugins = {
 			-- },
 			-- This does not actually do anything. Still have to install manually
 			ensure_installed = {
-				-- "lua-language-server",
+				"lua-language-server",
 				-- "netcoredbg",
 				"prettier",
 				"prettierd",
 				-- "roslyn",
-				-- "stylua",
+				"stylua",
 				"typescript-language-server",
 			},
 		},
 	},
-	{
-		"seblyng/roslyn.nvim",
-		opts = {},
-	},
+	-- {
+	-- 	"seblyng/roslyn.nvim",
+	-- 	opts = {},
+	-- },
 	-- {
 	-- 	"stevearc/conform.nvim",
 	-- 	opts = {
@@ -435,67 +410,68 @@ local plugins = {
 		},
 		opts_extend = { "sources.default" },
 	},
-	{
-		"mfussenegger/nvim-dap",
-		config = function()
-			local dap = require("dap")
-			local masonPath = vim.fn.stdpath("data") .. "/mason/packages"
-
-			dap.adapters.coreclr = {
-				type = "executable",
-				command = masonPath .. "/netcoredbg/netcoredbg",
-				args = { "--interpreter=vscode" },
-			}
-
-			dap.configurations.cs = {
-				{
-					type = "coreclr",
-					name = "launch - netcoredbg",
-					request = "launch",
-					program = function()
-						return vim.fn.input("Path to dll", vim.fn.getcwd() .. "/bin/Debug/", "file")
-					end,
-				},
-			}
-		end,
-	},
+	-- {
+	-- 	"mfussenegger/nvim-dap",
+	-- 	config = function()
+	-- 		local dap = require("dap")
+	-- 		local masonPath = vim.fn.stdpath("data") .. "/mason/packages"
+	--
+	-- 		dap.adapters.coreclr = {
+	-- 			type = "executable",
+	-- 			command = masonPath .. "/netcoredbg/netcoredbg",
+	-- 			args = { "--interpreter=vscode" },
+	-- 		}
+	--
+	-- 		dap.configurations.cs = {
+	-- 			{
+	-- 				type = "coreclr",
+	-- 				name = "launch - netcoredbg",
+	-- 				request = "launch",
+	-- 				program = function()
+	-- 					return vim.fn.input("Path to dll", vim.fn.getcwd() .. "/bin/Debug/", "file")
+	-- 				end,
+	-- 			},
+	-- 		}
+	-- 	end,
+	-- },
 }
 
 ---------------------------------------- LSP ----------------------------------------
--- vim.lsp.config("lua_ls", {
--- 	on_init = function(client)
--- 		if client.workspace_folders then
--- 			local path = client.workspace_folders[1].name
--- 			if
--- 				path ~= vim.fn.stdpath("config")
--- 				and (vim.uv.fs_stat(path .. "/.luarc.json") or vim.uv.fs_stat(path .. "/.luarc.jsonc"))
--- 			then
--- 				return
--- 			end
--- 		end
---
--- 		client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
--- 			runtime = {
--- 				version = "LuaJIT",
--- 				path = {
--- 					"lua/?.lua",
--- 					"lua/?/init.lua",
--- 				},
--- 			},
--- 			workspace = {
--- 				checkThirdParty = false,
--- 				library = {
--- 					vim.env.VIMRUNTIME,
--- 				},
--- 			},
--- 		})
--- 	end,
--- 	settings = {
--- 		Lua = {},
--- 	},
--- })
---
--- vim.lsp.enable({ "lua_ls", "stylua", "ts_ls" })
+vim.lsp.config("lua_ls", {
+	on_init = function(client)
+		if client.workspace_folders then
+			local path = client.workspace_folders[1].name
+			if
+				path ~= vim.fn.stdpath("config")
+				and (vim.uv.fs_stat(path .. "/.luarc.json") or vim.uv.fs_stat(path .. "/.luarc.jsonc"))
+			then
+				return
+			end
+		end
+
+		client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
+			runtime = {
+				version = "LuaJIT",
+				path = {
+					"lua/?.lua",
+					"lua/?/init.lua",
+				},
+			},
+			workspace = {
+				checkThirdParty = false,
+				library = {
+					vim.env.VIMRUNTIME,
+					"${3rd}/luv/library",
+				},
+			},
+		})
+	end,
+	settings = {
+		Lua = {},
+	},
+})
+
+vim.lsp.enable({ "lua_ls", "stylua", "ts_ls" })
 
 ----------------------------------------- LAZY -----------------------------------------
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
