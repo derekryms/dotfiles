@@ -310,7 +310,31 @@ local plugins = {
 					path = 1,
 				} },
 				lualine_b = { "branch", "diff" },
-				lualine_x = { "filetype" },
+				lualine_x = {
+					{
+						function()
+							local clients = vim.lsp.get_clients({ bufnr = 0 })
+							local formatters = require("conform").list_formatters(0)
+
+							if #clients == 0 and #formatters == 0 then
+								return ""
+							end
+
+							local lsps = {}
+							for _, client in ipairs(clients) do
+								table.insert(lsps, client.name)
+							end
+
+              local fmts = {}
+							for _, formatter in ipairs(formatters) do
+								table.insert(fmts, formatter.name)
+							end
+
+							return table.concat(vim.list_extend(lsps, fmts), ", ")
+						end,
+					},
+					"filetype",
+				},
 				lualine_y = {
 					{
 						"diagnostics",
