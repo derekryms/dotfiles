@@ -63,6 +63,10 @@ vim.keymap.set("n", "<C-l>", function()
 	navigate("l")
 end, { desc = "Buffer right" })
 
+vim.keymap.set("n", "<leader>bf", function()
+	require("conform").format({ bufnr = 0 })
+end, { desc = "Format buffer" })
+
 --------------------------------------- AUTOCMDS ---------------------------------------
 -- highlight yank
 vim.api.nvim_create_autocmd("TextYankPost", {
@@ -168,12 +172,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 		vim.keymap.set("n", "grd", vim.lsp.buf.definition, { buffer = args.buf, desc = "[LSP] Goto definition" })
 		vim.keymap.set("n", "grD", vim.lsp.buf.declaration, { buffer = args.buf, desc = "[LSP] Goto declaration" })
-
-		if client:supports_method("textDocument/formatting") then
-			vim.keymap.set("n", "<leader>bf", function()
-				require("conform").format({ bufnr = args.buf })
-			end, { desc = "[LSP] Format buffer" })
-		end
 	end,
 })
 
@@ -297,6 +295,7 @@ local plugins = {
 		"nvim-lualine/lualine.nvim",
 		opts = {
 			options = {
+				theme = "tokyonight",
 				disabled_filetypes = {
 					statusline = {
 						"",
@@ -387,6 +386,7 @@ local plugins = {
 				"prettier",
 				"prettierd",
 				"roslyn",
+				"shfmt",
 				"stylua",
 				"typescript-language-server",
 			},
@@ -408,6 +408,9 @@ local plugins = {
 				json = { "prettierd", "prettier" },
 				html = { "prettierd", "prettier" },
 				css = { "prettierd", "prettier" },
+				sh = { "shfmt" },
+				bash = { "shfmt" },
+				zsh = { "shfmt" },
 			},
 			default_format_opts = {
 				lsp_format = "fallback",
