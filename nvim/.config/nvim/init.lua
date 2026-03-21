@@ -215,6 +215,8 @@ local plugins = {
 			{ "<leader>fb", "<CMD>FzfLua buffers<CR>", desc = "Find buffers" },
 			{ "<leader>ff", "<CMD>FzfLua files<CR>", desc = "Find files" },
 			{ "<leader>ft", "<CMD>FzfLua live_grep<CR>", desc = "Find text" },
+			{ "<leader>ft", "<CMD>FzfLua grep_visual<CR>", desc = "Find text", mode = "v" },
+			{ "<leader>fw", "<CMD>FzfLua grep_cword<CR>", desc = "Find word under cursor" },
 			{ "<leader>fc", "<CMD>FzfLua git_commits<CR>", desc = "Find commits" },
 			{ "<leader>fh", "<CMD>FzfLua helptags<CR>", desc = "Find help" },
 			{ "<leader>fr", "<CMD>FzfLua registers<CR>", desc = "Find registers" },
