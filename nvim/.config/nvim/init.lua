@@ -168,7 +168,7 @@ vim.api.nvim_create_autocmd({ "WinLeave", "BufLeave" }, {
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("LspCustomizations", {}),
 	callback = function(args)
-		local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
+		-- local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
 
 		vim.keymap.set("n", "grd", vim.lsp.buf.definition, { buffer = args.buf, desc = "[LSP] Goto definition" })
 		vim.keymap.set("n", "grD", vim.lsp.buf.declaration, { buffer = args.buf, desc = "[LSP] Goto declaration" })
@@ -186,7 +186,7 @@ local plugins = {
 				style = "night",
 				transparent = true,
 				on_highlights = function(hl, colors)
-					hl["@lsp.type.extensionMethod"] = { fg = colors.blue2 }
+					hl["@lsp.type.extensionMethod"] = { fg = colors.red }
 				end,
 			})
 			vim.cmd([[colorscheme tokyonight-night]])
@@ -324,7 +324,7 @@ local plugins = {
 								table.insert(lsps, client.name)
 							end
 
-              local fmts = {}
+							local fmts = {}
 							for _, formatter in ipairs(formatters) do
 								table.insert(fmts, formatter.name)
 							end
