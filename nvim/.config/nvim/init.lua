@@ -185,7 +185,11 @@ local plugins = {
 		priority = 1000,
 		config = function()
 			require("tokyonight").setup({
+				style = "night",
 				transparent = true,
+				on_highlights = function(hl, colors)
+					hl["@lsp.type.extensionMethod"] = { fg = colors.blue2 }
+				end,
 			})
 			vim.cmd([[colorscheme tokyonight-night]])
 		end,
@@ -346,26 +350,26 @@ local plugins = {
 	{
 		"mason-org/mason.nvim",
 		opts = {
-			-- registries = {
-			-- 	"github:mason-org/mason-registry",
-			-- 	"github:Crashdummyy/mason-registry",
-			-- },
+			registries = {
+				"github:mason-org/mason-registry",
+				"github:Crashdummyy/mason-registry",
+			},
 			-- This does not actually do anything. Still have to install manually
 			ensure_installed = {
 				"lua-language-server",
 				-- "netcoredbg",
 				"prettier",
 				"prettierd",
-				-- "roslyn",
+				"roslyn",
 				"stylua",
 				"typescript-language-server",
 			},
 		},
 	},
-	-- {
-	-- 	"seblyng/roslyn.nvim",
-	-- 	opts = {},
-	-- },
+	{
+		"seblyng/roslyn.nvim",
+		opts = {},
+	},
 	{
 		"stevearc/conform.nvim",
 		opts = {
