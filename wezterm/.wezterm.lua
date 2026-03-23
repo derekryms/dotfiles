@@ -115,15 +115,15 @@ config.audible_bell = "Disabled"
 -- Startup (maximize with padding)
 -- =====================
 wezterm.on("gui-startup", function(cmd)
-	local tab, pane, window = wezterm.mux.spawn_window(cmd or {})
+	local _, _, window = wezterm.mux.spawn_window(cmd or {})
 	local gui_win = window:gui_window()
 	local screen = wezterm.gui.screens().active
 
 	wezterm.sleep_ms(100) -- wait for window to finish initializing
 
-	local h_padding = 10
-	local v_padding = 10
-	local mac_menu_bar_height = is_mac and 60 or 0
+	local h_padding = 8
+	local v_padding = 8
+	local mac_menu_bar_height = is_mac and 59 or 0
 
 	gui_win:set_position(screen.x + h_padding, screen.y + v_padding + mac_menu_bar_height)
 	gui_win:set_inner_size(screen.width - (h_padding * 2), screen.height - (v_padding * 2) - mac_menu_bar_height)
