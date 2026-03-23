@@ -389,6 +389,7 @@ local plugins = {
 				"shfmt",
 				"stylua",
 				"typescript-language-server",
+        "csharpier",
 			},
 		},
 	},
@@ -411,6 +412,10 @@ local plugins = {
 				sh = { "shfmt" },
 				bash = { "shfmt" },
 				zsh = { "shfmt" },
+				cs = { "csharpier" },
+				csproj = { "csharpier" },
+				xml = { "csharpier" },
+				xaml = { "csharpier" },
 			},
 			default_format_opts = {
 				lsp_format = "fallback",
