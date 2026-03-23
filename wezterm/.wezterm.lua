@@ -64,10 +64,13 @@ local function split_nav(key)
 	}
 end
 
+-- config.leader = { key = "a", mods = "CTRL", timeout_milliseconds = 1000 }
 config.keys = {
-	-- Split panes
-	-- { key = 'd', mods = 'CMD',       action = act.SplitHorizontal { domain = 'CurrentPaneDomain' } },
-	-- { key = 'd', mods = 'CMD|SHIFT', action = act.SplitVertical { domain = 'CurrentPaneDomain' } },
+	-- Send "CTRL-A" to the terminal when pressing CTRL-A, CTRL-A
+	-- { key = "a", mods = "LEADER|CTRL", action = act.SendKey({ key = "a", mods = "CTRL" }) },
+
+	{ key = "\\", mods = "CMD|SHIFT", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
+	{ key = "-", mods = "CMD|SHIFT", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
 
 	-- Smart Ctrl+H/J/K/L navigation (Neovim windows or WezTerm panes)
 	split_nav("h"),
@@ -83,7 +86,7 @@ config.keys = {
 
 	-- Tabs
 	{ key = "t", mods = "CMD", action = act.SpawnTab("CurrentPaneDomain") },
-	{ key = "w", mods = "CMD", action = act.CloseCurrentTab({ confirm = false }) },
+	{ key = "w", mods = "CMD", action = act.CloseCurrentPane({ confirm = false }) },
 
 	-- Copy mode (Vim motions in scrollback)
 	{ key = "f", mods = "CMD|SHIFT", action = act.ActivateCopyMode },
