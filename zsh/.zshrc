@@ -4,6 +4,19 @@ if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
   eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/oh-my-posh.toml)"
 fi
 
+# Vi in terminal
+bindkey -v
+export KEYTIMEOUT=10 # Remove ESC key timeout delay (100ms)
+function zle-keymap-select {
+  if [[ ${KEYMAP} == vicmd ]]; then
+    echo -ne "\e[2 q" # Block cursor for normal mode
+  else
+    echo -ne "\e[6 q" # Vertical bar for insert mode
+  fi
+}
+zle -N zle-keymap-select
+echo -ne "\e[6 q" # Start with bar cursor
+
 # Set history file location
 export HISTFILE=~/.zsh_history
 
