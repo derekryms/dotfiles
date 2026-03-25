@@ -115,6 +115,22 @@ vim.api.nvim_create_autocmd("BufRead", {
 	end,
 })
 
+-- notify when opening a file with no treesitter parser installed
+vim.api.nvim_create_autocmd("FileType", {
+	group = vim.api.nvim_create_augroup("ts_missing_parser", { clear = true }),
+	callback = function(args)
+		local ft = vim.bo[args.buf].filetype
+		if ft == "" or vim.bo[args.buf].buftype ~= "" then
+			return
+		end
+		local lang = vim.treesitter.language.get_lang(ft) or ft
+		local found = vim.api.nvim_get_runtime_file("parser/" .. lang .. ".so", false)
+		if #found == 0 then
+			vim.notify("No treesitter parser for: " .. ft, vim.log.levels.WARN)
+		end
+	end,
+})
+
 -- show cursorline only in active window enable
 vim.api.nvim_create_autocmd({ "WinEnter", "BufEnter" }, {
 	group = vim.api.nvim_create_augroup("active_cursorline", { clear = true }),
@@ -249,6 +265,7 @@ local plugins = {
 			ensure_installed = {
 				"bash",
 				"c",
+				"cpp",
 				"c_sharp",
 				"css",
 				"diff",
@@ -290,6 +307,11 @@ local plugins = {
 				end
 			end
 		end,
+	},
+	{
+		"nvim-treesitter/nvim-treesitter-context",
+		dependencies = "nvim-treesitter/nvim-treesitter",
+		opts = {},
 	},
 	{
 		"nvim-lualine/lualine.nvim",
@@ -389,7 +411,7 @@ local plugins = {
 				"shfmt",
 				"stylua",
 				"typescript-language-server",
-        "csharpier",
+				"csharpier",
 			},
 		},
 	},
