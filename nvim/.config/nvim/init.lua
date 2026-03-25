@@ -232,10 +232,11 @@ local plugins = {
 			{ "<leader>ft", "<CMD>FzfLua grep_visual<CR>", desc = "Find text", mode = "v" },
 			{ "<leader>fw", "<CMD>FzfLua grep_cword<CR>", desc = "Find word under cursor" },
 			{ "<leader>fc", "<CMD>FzfLua git_commits<CR>", desc = "Find commits" },
-			{ "<leader>fh", "<CMD>FzfLua helptags<CR>", desc = "Find help" },
+			{ "<leader>fH", "<CMD>FzfLua helptags<CR>", desc = "Find help" },
 			{ "<leader>fr", "<CMD>FzfLua registers<CR>", desc = "Find registers" },
 			{ "<leader>fo", "<CMD>FzfLua nvim_options<CR>", desc = "Find neovim options" },
 			{ "<leader>fk", "<CMD>FzfLua keymaps<CR>", desc = "Find keymaps" },
+			{ "<leader>fh", "<CMD>FzfLua history<CR>", desc = "Find history" },
 		},
 	},
 	{
@@ -310,8 +311,12 @@ local plugins = {
 	},
 	{
 		"nvim-treesitter/nvim-treesitter-context",
+		lazy = false,
 		dependencies = "nvim-treesitter/nvim-treesitter",
 		opts = {},
+		keys = {
+			{ "<leader>sl", "<CMD>TSContext toggle<CR>", desc = "Toggle sticky lines" },
+		},
 	},
 	{
 		"nvim-lualine/lualine.nvim",
@@ -469,6 +474,16 @@ local plugins = {
 			},
 		},
 		opts_extend = { "sources.default" },
+	},
+	{
+		"folke/trouble.nvim",
+		opts = {}, -- for default options, refer to the configuration section for custom setup.
+		cmd = "Trouble",
+		keys = {
+			{ "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", desc = "Trouble Diagnostics" },
+			{ "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Trouble Buffer Diagnostics" },
+			{ "<leader>xs", "<cmd>Trouble symbols toggle focus=false<cr>", desc = "Trouble Symbols" },
+		},
 	},
 	-- {
 	-- 	"mfussenegger/nvim-dap",
