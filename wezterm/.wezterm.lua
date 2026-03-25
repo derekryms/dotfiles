@@ -78,11 +78,11 @@ config.keys = {
 	split_nav("k"),
 	split_nav("l"),
 
-	-- Navigate panes (Vim-style, kept as fallback with CMD+SHIFT)
-	{ key = "h", mods = "CMD|SHIFT", action = act.ActivatePaneDirection("Left") },
-	{ key = "l", mods = "CMD|SHIFT", action = act.ActivatePaneDirection("Right") },
-	{ key = "k", mods = "CMD|SHIFT", action = act.ActivatePaneDirection("Up") },
-	{ key = "j", mods = "CMD|SHIFT", action = act.ActivatePaneDirection("Down") },
+	-- Rotate panes
+	{ key = "h", mods = "CMD|SHIFT", action = act.RotatePanes("CounterClockwise") },
+	{ key = "j", mods = "CMD|SHIFT", action = act.RotatePanes("Clockwise") },
+	{ key = "k", mods = "CMD|SHIFT", action = act.RotatePanes("CounterClockwise") },
+	{ key = "l", mods = "CMD|SHIFT", action = act.RotatePanes("Clockwise") },
 
 	-- Tabs
 	{ key = "t", mods = "CMD", action = act.SpawnTab("CurrentPaneDomain") },
