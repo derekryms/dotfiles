@@ -417,6 +417,7 @@ local plugins = {
 				"stylua",
 				"typescript-language-server",
 				"csharpier",
+        "tailwindcss-language-server"
 			},
 		},
 	},
@@ -546,7 +547,7 @@ vim.lsp.config("lua_ls", {
 	},
 })
 
-vim.lsp.enable({ "lua_ls", "stylua", "ts_ls" })
+vim.lsp.enable({ "lua_ls", "stylua", "ts_ls", "tailwindcss" })
 
 ----------------------------------------- LAZY -----------------------------------------
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
