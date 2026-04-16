@@ -120,7 +120,7 @@ vim.api.nvim_create_autocmd("FileType", {
 	group = vim.api.nvim_create_augroup("ts_missing_parser", { clear = true }),
 	callback = function(args)
 		local ft = vim.bo[args.buf].filetype
-		if ft == "" or vim.bo[args.buf].buftype ~= "" then
+		if ft == "" or ft == "oil" or vim.bo[args.buf].buftype ~= "" then
 			return
 		end
 		local lang = vim.treesitter.language.get_lang(ft) or ft
