@@ -33,8 +33,8 @@ vim.diagnostic.config({ virtual_text = true }) -- inline diagnostics
 
 ---------------------------------------- KEYMAPS ----------------------------------------
 vim.keymap.set("n", "<ESC>", "<CMD>nohlsearch<CR>", { desc = "Remove search highlighting" })
-vim.keymap.set("n", "<C-u>", "10<C-u>zz", { desc = "Up and center" })
-vim.keymap.set("n", "<C-d>", "10<C-d>zz", { desc = "Down and center" })
+-- vim.keymap.set("n", "<C-u>", "10<C-u>zz", { desc = "Up and center" })
+-- vim.keymap.set("n", "<C-d>", "10<C-d>zz", { desc = "Down and center" })
 vim.keymap.set("n", "n", "nzzzv", { desc = "Search next and center" })
 vim.keymap.set("n", "N", "Nzzzv", { desc = "Search previous and center" })
 
@@ -210,6 +210,12 @@ local plugins = {
 	},
 	{
 		"nvim-mini/mini.icons",
+		version = false,
+		opts = {},
+	},
+	{
+		"nvim-mini/mini.animate",
+		version = false,
 		opts = {},
 	},
 	{
@@ -417,7 +423,7 @@ local plugins = {
 				"stylua",
 				"typescript-language-server",
 				"csharpier",
-        "tailwindcss-language-server"
+				"tailwindcss-language-server",
 			},
 		},
 	},
