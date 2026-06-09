@@ -7,8 +7,8 @@
 """ Options
 let mapleader=" "
 let maplocalleader="\\"
-set number
-set relativenumber
+" set number
+" set relativenumber
 set scrolloff=4
 set sidescrolloff=8
 set shiftround
@@ -60,8 +60,8 @@ map <leader>ff <Action>(GotoFile)
 " Errors
 " map <A-N> <Action>(GotoNextError)
 " map <A-P> <Action>(GotoPreviousError)
-" map ]] <Action>(ReSharperGotoNextErrorInSolution)
-" map [[ <Action>(ReSharperGotoPrevErrorInSolution)
+map ]d <Action>(ReSharperGotoNextErrorInSolution)
+map [d <Action>(ReSharperGotoPrevErrorInSolution)
 map <leader>es <Action>(ShowErrorDescription)
 " Navigation
 " map <C-H> <C-W>h
