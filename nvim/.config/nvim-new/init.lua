@@ -41,9 +41,7 @@ vim.pack.add({
 
 require('mason').setup()
 
--- [[ LSP ]] --
 vim.lsp.enable({ 'lua_ls' })
-vim.keymap.set('n', 'gl', vim.diagnostic.open_float)
 
 require('lazydev').setup({
   library = {
@@ -63,7 +61,28 @@ require("oil").setup({
     preview_split = "below",
   },
 })
-vim.keymap.set('n', '<leader>e', '<cmd>Oil --float<cr>')
+
+local wezterm_dirs = { h = "Left", j = "Down", k = "Up", l = "Right" }
+local function navigate(dir)
+  local win = vim.api.nvim_get_current_win()
+  if vim.api.nvim_win_get_config(win).relative ~= "" then
+    return -- ignore floating windows
+  end
+  vim.cmd("wincmd " .. dir)
+  if vim.api.nvim_get_current_win() == win and vim.env.WEZTERM_PANE then
+    vim.fn.jobstart({ "wezterm", "cli", "activate-pane-direction", wezterm_dirs[dir] })
+  end
+end
+
+vim.keymap.set('n', 'gl', vim.diagnostic.open_float, { desc = "Open lsp diag float" })
+vim.keymap.set("n", "<ESC>", "<CMD>nohlsearch<CR>", { desc = "Remove search highlighting" })
+vim.keymap.set("n", "n", "nzzzv", { desc = "Search next and center" })
+vim.keymap.set("n", "N", "Nzzzv", { desc = "Search previous and center" })
+vim.keymap.set("n", "<C-h>", function() navigate("h") end, { desc = "Buffer left" })
+vim.keymap.set("n", "<C-j>", function() navigate("j") end, { desc = "Buffer below" })
+vim.keymap.set("n", "<C-k>", function() navigate("k") end, { desc = "Buffer above" })
+vim.keymap.set("n", "<C-l>", function() navigate("l") end, { desc = "Buffer right" })
+vim.keymap.set('n', '<leader>e', '<cmd>Oil --float<cr>', { desc = "Open oil in float" })
 
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
