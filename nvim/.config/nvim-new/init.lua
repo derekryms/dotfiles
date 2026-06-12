@@ -41,6 +41,7 @@ vim.pack.add({
   "https://github.com/stevearc/oil.nvim",
   "https://github.com/nvim-mini/mini.icons",
   "https://github.com/ibhagwan/fzf-lua",
+  "https://github.com/folke/which-key.nvim",
 })
 
 require("tokyonight").setup({
@@ -76,6 +77,8 @@ require("oil").setup({
 require("mini.icons").setup()
 require("fzf-lua").register_ui_select()
 require("fzf-lua").setup()
+
+require("which-key").setup()
 
 local wezterm_dirs = { h = "Left", j = "Down", k = "Up", l = "Right" }
 local function navigate(dir)
@@ -121,6 +124,10 @@ vim.keymap.set("n", "<leader>fr", "<CMD>FzfLua registers<CR>", { desc = "Find re
 vim.keymap.set("n", "<leader>fo", "<CMD>FzfLua nvim_options<CR>", { desc = "Find neovim options" })
 vim.keymap.set("n", "<leader>fk", "<CMD>FzfLua keymaps<CR>", { desc = "Find keymaps" })
 vim.keymap.set("n", "<leader>fh", "<CMD>FzfLua history<CR>", { desc = "Find history" })
+
+vim.keymap.set("n", "<leader>?", function()
+  require("which-key").show({ global = false })
+end, { desc = "Buffer Local Keymaps (which-key)" })
 
 vim.api.nvim_create_autocmd("TextYankPost", {
   desc = "Highlight when yanking (copying) text",
