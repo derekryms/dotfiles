@@ -44,6 +44,7 @@ vim.pack.add({
   "https://github.com/folke/which-key.nvim",
   "https://github.com/nvim-mini/mini.animate",
   "https://github.com/romus204/tree-sitter-manager.nvim",
+  "https://github.com/kdheepak/lazygit.nvim",
 })
 
 require("tokyonight").setup({
@@ -87,6 +88,8 @@ require("mini.animate").setup()
 require("tree-sitter-manager").setup({
   auto_install = true,
 })
+
+-- require("lazygit").setup({})
 
 local wezterm_dirs = { h = "Left", j = "Down", k = "Up", l = "Right" }
 local function navigate(dir)
@@ -136,6 +139,8 @@ vim.keymap.set("n", "<leader>fh", "<CMD>FzfLua history<CR>", { desc = "Find hist
 vim.keymap.set("n", "<leader>?", function()
   require("which-key").show({ global = false })
 end, { desc = "Buffer Local Keymaps (which-key)" })
+
+vim.keymap.set("n", "<leader>lg", "<CMD>LazyGit<CR>", { desc = "Open LazyGit" })
 
 vim.api.nvim_create_autocmd("TextYankPost", {
   desc = "Highlight when yanking (copying) text",
