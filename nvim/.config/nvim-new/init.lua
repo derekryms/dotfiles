@@ -33,15 +33,25 @@ vim.o.wrap = false -- disable wrapping
 vim.o.breakindent = true -- prevent line wrapping
 
 vim.pack.add({
+  'https://github.com/folke/tokyonight.nvim',
   'https://github.com/mason-org/mason.nvim',
   'https://github.com/neovim/nvim-lspconfig',
+  'https://github.com/mason-org/mason-lspconfig.nvim',
   'https://github.com/folke/lazydev.nvim',
   'https://github.com/stevearc/oil.nvim'
 })
 
-require('mason').setup()
+require("tokyonight").setup({
+  style = "night",
+  transparent = true,
+})
+vim.cmd[[colorscheme tokyonight]]
 
-vim.lsp.enable({ 'lua_ls' })
+
+require('mason').setup()
+require("mason-lspconfig").setup({
+  ensure_installed = { "lua_ls" }
+})
 
 require('lazydev').setup({
   library = {
