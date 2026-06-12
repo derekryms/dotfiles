@@ -43,6 +43,7 @@ vim.pack.add({
   "https://github.com/ibhagwan/fzf-lua",
   "https://github.com/folke/which-key.nvim",
   "https://github.com/nvim-mini/mini.animate",
+  "https://github.com/romus204/tree-sitter-manager.nvim",
 })
 
 require("tokyonight").setup({
@@ -82,6 +83,10 @@ require("fzf-lua").setup()
 require("which-key").setup()
 
 require("mini.animate").setup()
+
+require("tree-sitter-manager").setup({
+  auto_install = true,
+})
 
 local wezterm_dirs = { h = "Left", j = "Down", k = "Up", l = "Right" }
 local function navigate(dir)

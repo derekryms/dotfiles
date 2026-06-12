@@ -36,6 +36,10 @@
       "rev": "cdc07ac78467a233fd62c493de29a17e0cf2b2b6",
       "src": "https://github.com/folke/tokyonight.nvim"
     },
+    "tree-sitter-manager.nvim": {
+      "rev": "c8a7b7b91aa23da24e7d02874f78d4c668a08530",
+      "src": "https://github.com/romus204/tree-sitter-manager.nvim"
+    },
     "which-key.nvim": {
       "rev": "3aab2147e74890957785941f0c1ad87d0a44c15a",
       "src": "https://github.com/folke/which-key.nvim"
