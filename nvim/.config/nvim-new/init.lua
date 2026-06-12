@@ -39,6 +39,8 @@ vim.pack.add({
   "https://github.com/mason-org/mason-lspconfig.nvim",
   "https://github.com/folke/lazydev.nvim",
   "https://github.com/stevearc/oil.nvim",
+  "https://github.com/nvim-mini/mini.icons",
+  "https://github.com/ibhagwan/fzf-lua",
 })
 
 require("tokyonight").setup({
@@ -71,6 +73,10 @@ require("oil").setup({
   },
 })
 
+require("mini.icons").setup()
+require("fzf-lua").register_ui_select()
+require("fzf-lua").setup()
+
 local wezterm_dirs = { h = "Left", j = "Down", k = "Up", l = "Right" }
 local function navigate(dir)
   local win = vim.api.nvim_get_current_win()
@@ -84,9 +90,11 @@ local function navigate(dir)
 end
 
 vim.keymap.set("n", "gl", vim.diagnostic.open_float, { desc = "Open lsp diag float" })
+
 vim.keymap.set("n", "<ESC>", "<CMD>nohlsearch<CR>", { desc = "Remove search highlighting" })
 vim.keymap.set("n", "n", "nzzzv", { desc = "Search next and center" })
 vim.keymap.set("n", "N", "Nzzzv", { desc = "Search previous and center" })
+
 vim.keymap.set("n", "<C-h>", function()
   navigate("h")
 end, { desc = "Buffer left" })
@@ -99,7 +107,20 @@ end, { desc = "Buffer above" })
 vim.keymap.set("n", "<C-l>", function()
   navigate("l")
 end, { desc = "Buffer right" })
+
 vim.keymap.set("n", "<leader>e", "<cmd>Oil --float<cr>", { desc = "Open oil in float" })
+
+vim.keymap.set("n", "<leader>fb", "<CMD>FzfLua buffers<CR>", { desc = "Find buffers" })
+vim.keymap.set("n", "<leader>ff", "<CMD>FzfLua files<CR>", { desc = "Find files" })
+vim.keymap.set("n", "<leader>ft", "<CMD>FzfLua live_grep<CR>", { desc = "Find text" })
+vim.keymap.set("v", "<leader>ft", "<CMD>FzfLua grep_visual<CR>", { desc = "Find text" })
+vim.keymap.set("n", "<leader>fw", "<CMD>FzfLua grep_cword<CR>", { desc = "Find word under cursor" })
+vim.keymap.set("n", "<leader>fc", "<CMD>FzfLua git_commits<CR>", { desc = "Find commits" })
+vim.keymap.set("n", "<leader>fH", "<CMD>FzfLua helptags<CR>", { desc = "Find help" })
+vim.keymap.set("n", "<leader>fr", "<CMD>FzfLua registers<CR>", { desc = "Find registers" })
+vim.keymap.set("n", "<leader>fo", "<CMD>FzfLua nvim_options<CR>", { desc = "Find neovim options" })
+vim.keymap.set("n", "<leader>fk", "<CMD>FzfLua keymaps<CR>", { desc = "Find keymaps" })
+vim.keymap.set("n", "<leader>fh", "<CMD>FzfLua history<CR>", { desc = "Find history" })
 
 vim.api.nvim_create_autocmd("TextYankPost", {
   desc = "Highlight when yanking (copying) text",
