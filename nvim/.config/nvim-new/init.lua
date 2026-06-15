@@ -32,6 +32,13 @@ vim.o.splitright = true                              -- better splitting
 vim.o.wrap = false                                   -- disable wrapping
 vim.o.breakindent = true                             -- prevent line wrapping
 
+-- tiny-cmdline
+vim.o.cmdheight = 0
+vim.g.tiny_cmdline = {
+  native_types = {},
+}
+vim.api.nvim_set_hl(0, "TinyCmdlineBorder", { fg = "LightMagenta" })
+
 vim.pack.add({
   "https://github.com/folke/tokyonight.nvim",
   "https://github.com/mason-org/mason.nvim",
@@ -45,6 +52,7 @@ vim.pack.add({
   "https://github.com/nvim-mini/mini.animate",
   "https://github.com/romus204/tree-sitter-manager.nvim",
   "https://github.com/kdheepak/lazygit.nvim",
+  "https://github.com/rachartier/tiny-cmdline.nvim",
 })
 
 require("tokyonight").setup({
@@ -92,7 +100,7 @@ require("tree-sitter-manager").setup({
   auto_install = true,
 })
 
--- require("lazygit").setup({})
+require("vim._core.ui2").enable({})
 
 local wezterm_dirs = { h = "Left", j = "Down", k = "Up", l = "Right" }
 local function navigate(dir)
@@ -125,7 +133,7 @@ vim.keymap.set("n", "<C-l>", function()
   navigate("l")
 end, { desc = "Buffer right" })
 
-vim.keymap.set("n", "<leader>e", "<cmd>Oil --float<cr>", { desc = "Open oil in float" })
+vim.keymap.set("n", "<leader>\\", "<cmd>Oil --float<cr>", { desc = "Open oil in float" })
 
 vim.keymap.set("n", "<leader>fb", "<CMD>FzfLua buffers<CR>", { desc = "Find buffers" })
 vim.keymap.set("n", "<leader>ff", "<CMD>FzfLua files<CR>", { desc = "Find files" })

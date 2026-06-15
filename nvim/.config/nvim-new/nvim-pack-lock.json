@@ -36,6 +36,10 @@
       "rev": "b73018b75affd13fa38e2fc94ef753b465f770d7",
       "src": "https://github.com/stevearc/oil.nvim"
     },
+    "tiny-cmdline.nvim": {
+      "rev": "b1db8607a78f0c23b3bae08e079b1b7f147619d7",
+      "src": "https://github.com/rachartier/tiny-cmdline.nvim"
+    },
     "tokyonight.nvim": {
       "rev": "cdc07ac78467a233fd62c493de29a17e0cf2b2b6",
       "src": "https://github.com/folke/tokyonight.nvim"
