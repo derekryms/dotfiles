@@ -55,7 +55,7 @@ vim.cmd([[colorscheme tokyonight]])
 
 require("mason").setup()
 require("mason-lspconfig").setup({
-  ensure_installed = { "lua_ls", "stylua" },
+  ensure_installed = { "lua_ls", "stylua", "roslyn_ls" },
 })
 
 require("lazydev").setup({
