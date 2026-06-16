@@ -80,6 +80,7 @@ require("lazydev").setup({
 require("oil").setup({
   keymaps = {
     ["q"] = { "actions.close", mode = "n" },
+    ["<Esc>"] = { "actions.close", mode = "n" },
   },
   view_options = {
     show_hidden = true,
@@ -191,7 +192,7 @@ vim.keymap.set("n", "<C-l>", function()
   navigate("l")
 end, { desc = "Buffer right" })
 
-vim.keymap.set("n", "<leader>\\", "<cmd>Oil --float<cr>", { desc = "Open oil in float" })
+vim.keymap.set("n", "\\", "<cmd>Oil --float<cr>", { desc = "Open oil in float" })
 
 vim.keymap.set("n", "<leader>fb", "<CMD>FzfLua buffers<CR>", { desc = "Find buffers" })
 vim.keymap.set("n", "<leader>ff", "<CMD>FzfLua files<CR>", { desc = "Find files" })
