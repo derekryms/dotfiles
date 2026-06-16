@@ -53,6 +53,7 @@ vim.pack.add({
   "https://github.com/romus204/tree-sitter-manager.nvim",
   "https://github.com/kdheepak/lazygit.nvim",
   "https://github.com/rachartier/tiny-cmdline.nvim",
+  "https://github.com/nvim-lualine/lualine.nvim",
 })
 
 require("tokyonight").setup({
@@ -103,6 +104,61 @@ require("tree-sitter-manager").setup({
 })
 
 require("vim._core.ui2").enable({})
+
+require("lualine").setup({
+  options = {
+    theme = "tokyonight",
+    disabled_filetypes = {
+      statusline = {
+        "",
+      },
+    },
+  },
+  sections = {
+    lualine_a = {},
+    lualine_c = { {
+      "filename",
+      path = 1,
+    } },
+    lualine_b = { "branch", "diff" },
+    lualine_x = {
+      {
+        function()
+          local clients = vim.lsp.get_clients({ bufnr = 0 })
+          local formatters = require("conform").list_formatters(0)
+
+          if #clients == 0 and #formatters == 0 then
+            return ""
+          end
+
+          local lsps = {}
+          for _, client in ipairs(clients) do
+            table.insert(lsps, client.name)
+          end
+
+          local fmts = {}
+          for _, formatter in ipairs(formatters) do
+            table.insert(fmts, formatter.name)
+          end
+
+          return table.concat(vim.list_extend(lsps, fmts), ", ")
+        end,
+      },
+      "filetype",
+    },
+    lualine_y = {
+      {
+        "diagnostics",
+        sources = { "nvim_workspace_diagnostic" },
+      },
+    },
+    lualine_z = {
+      function()
+        return vim.fn.line(".") .. "/" .. vim.fn.line("$")
+      end,
+    },
+  },
+})
 
 local wezterm_dirs = { h = "Left", j = "Down", k = "Up", l = "Right" }
 local function navigate(dir)
