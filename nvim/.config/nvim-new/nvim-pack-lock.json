@@ -25,11 +25,11 @@
       "src": "https://github.com/mason-org/mason.nvim"
     },
     "mini.animate": {
-      "rev": "a133965b027a6377fddca43f11659af357c12758",
+      "rev": "668b649d3f9cea3d37f2290b534325a28ed92286",
       "src": "https://github.com/nvim-mini/mini.animate"
     },
     "mini.icons": {
-      "rev": "d48ad47359218d2b019034f95f601b3861180885",
+      "rev": "ac38c983aed0a2bd32a65ca3e2348e12e58ca292",
       "src": "https://github.com/nvim-mini/mini.icons"
     },
     "nvim-lspconfig": {
