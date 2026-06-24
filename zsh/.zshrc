@@ -59,7 +59,6 @@ compinit
 # Aliases
 alias ls='ls --color'
 alias lg='lazygit'
-alias nv='NVIM_APPNAME=nvim-new nvim'
 
 # Source zsh plugins
 # NOTE: Syntax highlighing must be at the end of file
