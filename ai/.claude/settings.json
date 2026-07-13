@@ -1,7 +1,7 @@
 {
   "statusLine": {
     "type": "command",
-    "command": "bash \"/Users/dryms/.claude/plugins/cache/caveman/caveman/25d22f864ad6/src/hooks/caveman-statusline.sh\""
+    "command": "bash \"/Users/dryms/.claude/plugins/cache/caveman/caveman/0d95a81d35a9/src/hooks/caveman-statusline.sh\""
   },
   "enabledPlugins": {
     "caveman@caveman": true
@@ -14,7 +14,7 @@
       }
     }
   },
-  "effortLevel": "high",
-  "awaySummaryEnabled": false,
-  "tui": "fullscreen"
+  "tui": "fullscreen",
+  "theme": "dark",
+  "effortLevel": "high"
 }
