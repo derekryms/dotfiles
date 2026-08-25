@@ -2,12 +2,15 @@
   "permissions": {
     "defaultMode": "auto"
   },
+  "model": "sonnet",
   "statusLine": {
     "type": "command",
     "command": "bash \"/Users/dryms/.claude/plugins/cache/caveman/caveman/0d95a81d35a9/src/hooks/caveman-statusline.sh\""
   },
   "enabledPlugins": {
-    "caveman@caveman": true
+    "caveman@caveman": true,
+    "clangd-lsp@claude-plugins-official": true,
+    "mattpocock-skills@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "caveman": {
@@ -17,7 +20,10 @@
       }
     }
   },
+  "effortLevel": "medium",
   "awaySummaryEnabled": false,
   "tui": "fullscreen",
-  "editorMode": "vim"
+  "editorMode": "vim",
+  "verbose": true,
+  "fileCheckpointingEnabled": false
 }
