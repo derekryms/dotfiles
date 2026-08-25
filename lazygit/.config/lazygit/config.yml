@@ -1,6 +1,8 @@
 os:
   editPreset: "nvim-remote"
 git:
-  pagers:
+  diffRenderers:
     - colorArg: always
       # pager: delta --side-by-side --paging=never
+
+      type: rawGit
