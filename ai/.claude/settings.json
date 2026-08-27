@@ -24,6 +24,6 @@
   "awaySummaryEnabled": false,
   "tui": "fullscreen",
   "editorMode": "vim",
-  "verbose": true,
+  "verbose": false,
   "fileCheckpointingEnabled": false
 }
