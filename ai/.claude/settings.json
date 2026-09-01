@@ -2,7 +2,6 @@
   "permissions": {
     "defaultMode": "auto"
   },
-  "model": "sonnet",
   "statusLine": {
     "type": "command",
     "command": "bash \"/Users/dryms/.claude/plugins/cache/caveman/caveman/0d95a81d35a9/src/hooks/caveman-statusline.sh\""
@@ -25,5 +24,6 @@
   "tui": "fullscreen",
   "editorMode": "vim",
   "verbose": false,
-  "fileCheckpointingEnabled": false
+  "fileCheckpointingEnabled": false,
+  "model": "sonnet"
 }
