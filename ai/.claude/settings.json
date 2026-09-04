@@ -1,2 +1,69 @@
 {
+  "permissions": {
+    "deny": [
+      "EnterPlanMode",
+      "ExitPlanMode",
+      "DesignSync",
+      "NotebookEdit",
+      "SendMessage",
+      "PushNotification",
+      "RemoteTrigger",
+      "ReportFindings",
+      "ScheduleWakeup",
+      "AskUserQuestion",
+      "CronCreate",
+      "CronDelete",
+      "CronList"
+    ],
+    "defaultMode": "auto"
+  },
+  "model": "opus[1m]",
+  "disableClaudeAiConnectors": true,
+  "disableBundledSkills": true,
+  "worktree": {
+    "baseRef": "fresh"
+  },
+  "disableRemoteControl": true,
+  "disableArtifact": true,
+  "enableWorkflows": false,
+  "workflowKeywordTriggerEnabled": false,
+  "statusLine": {
+    "type": "command",
+    "command": "bash ~/.claude/statusline-command.sh"
+  },
+  "enabledPlugins": {
+    "mattpocock-skills@claude-plugins-official": true
+  },
+  "feedbackDrafts": "notify",
+  "modelSettings": {
+    "claude-sonnet-5": {
+      "effortLevel": "medium"
+    },
+    "claude-opus-5": {
+      "effortLevel": "medium"
+    },
+    "claude-haiku-4-5": {
+      "effortLevel": "medium"
+    }
+  },
+  "promptSuggestionEnabled": false,
+  "awaySummaryEnabled": false,
+  "askUserQuestionTimeout": "never",
+  "tui": "fullscreen",
+  "timeFormat": "12-hour",
+  "theme": "dark",
+  "editorMode": "vim",
+  "verbose": false,
+  "preferredNotifChannel": "auto",
+  "autoCompactEnabled": true,
+  "switchModelsOnFlag": true,
+  "autoContinueAtUsageLimit": true,
+  "autoScrollEnabled": true,
+  "fileCheckpointingEnabled": false,
+  "showTurnDuration": true,
+  "terminalProgressBarEnabled": true,
+  "remoteControlAtStartup": false,
+  "inputNeededNotifEnabled": false,
+  "agentPushNotifEnabled": false,
+  "useAutoModeDuringPlan": true
 }
