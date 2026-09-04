@@ -1,29 +1,2 @@
 {
-  "permissions": {
-    "defaultMode": "auto"
-  },
-  "statusLine": {
-    "type": "command",
-    "command": "bash \"/Users/dryms/.claude/plugins/cache/caveman/caveman/0d95a81d35a9/src/hooks/caveman-statusline.sh\""
-  },
-  "enabledPlugins": {
-    "caveman@caveman": true,
-    "clangd-lsp@claude-plugins-official": true,
-    "mattpocock-skills@claude-plugins-official": true
-  },
-  "extraKnownMarketplaces": {
-    "caveman": {
-      "source": {
-        "source": "github",
-        "repo": "JuliusBrussee/caveman"
-      }
-    }
-  },
-  "effortLevel": "medium",
-  "awaySummaryEnabled": false,
-  "tui": "fullscreen",
-  "editorMode": "vim",
-  "verbose": false,
-  "fileCheckpointingEnabled": false,
-  "model": "sonnet"
 }
